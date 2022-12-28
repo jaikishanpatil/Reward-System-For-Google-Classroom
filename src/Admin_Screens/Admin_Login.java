@@ -1,19 +1,14 @@
 package Admin_Screens;
 
 import java.awt.EventQueue;
-
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-
-
-
 import java.awt.Font;
 import java.awt.Image;
-
 import javax.swing.SwingConstants;
 import javax.swing.JSeparator;
 import javax.swing.JPasswordField;
