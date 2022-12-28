@@ -1,0 +1,24 @@
+Method overloading is done during _______,Program compilation,Dynamic binding,Late binding,Runtime,Program compilation
+The relation between Car and Owner or BankAccount and Customer is example for,None,Aggregation,Composition,Association,Association
+"At run-time, a Java program is nothing more than objects 'talking' to ___________",Other binders,Other metods,Other objects,Other classes,Other objects
+Ad hoc polymorphism is ____________,Dynamic binding,Subclassing polymorphism,Method Overriding,Method Overloading,Method Overloading
+"In OO, the concept of IS-A is based on",Class inheritance,Both,Interface implementation.,None,Both
+Polymorphism is one interface with __________,Single record,Single method,Multiple methods,Multiple record,Multiple methods
+Which of the following includes Chrome's V8 JavaScript Engine?,jQuery,Java,npm,Node.js,Node.js
+Python is _____ programming language,high-level,mid-level,low-level,none of the above,high-level
+Which of the following is not a programming language?,TypeScript,Python,Anaconda,Java,Anaconda
+WhatsApp concurrent model is implemented using _____ programming language,Java,Node.js,Erlang,C,Erlang
+C++ was developed by ___,Thomas Kushz,John Kemney,Bjarne Stroutstrup,James Goling,Bjarne Stroutstrup
+Which one of the following is a keyword?,Size,Key,Jump,Switch,Switch
+____ is the smallest individual unit in a program,Variable,Control,Character,Token,Token
+The modulus operator uses ___ character,+,*,/,%,%
+Every variable should be separated by ___ separator.,Dot,Colon,Comma,Semicolon,Comma
+"Auto, static, extern and register are called as ___",Static,Register,Auto,Storage specifier,Storage specifier
+"Signed, unsigned, long and short are some of the ___",Void,Data,Derived data,Modifiers,Modifiers
+,,,,,
+,,,,,
+,,,,,
+,,,,,
+,,,,,
+,,,,,
+,,,,,
