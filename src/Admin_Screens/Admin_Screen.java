@@ -68,11 +68,10 @@ import javax.swing.JTextPane;
 import java.awt.SystemColor;
 
 public class Admin_Screen {
-	
 
 	public JFrame frame;
 	JTextArea urDescription, fmsg;
-	JComboBox urCategory, rewardCat, ttcourse, ttyear, comboBox;
+	JComboBox urCategory, rewardCat, ttcourse, ttyear, comboBox, courseSearch;
 	FileOutputStream outpute;
 	String reName, reDescription, rePoint, reCategory;
 	JLabel reImg = new JLabel();
@@ -156,10 +155,10 @@ public class Admin_Screen {
 	private JTextField sans;
 	private JTextField queidsearch;
 	private JTable allquestiontable;
-	
+
 	// All tables method are here
-	
-	 void manageStudentTableConfig(){
+
+	void manageStudentTableConfig() {
 		table.setModel(new DefaultTableModel(new Object[][] {},
 				new String[] { "Name", "Email Id", "PRN", "DOB", "Username", "Academic year", "Course", "Address",
 						"Batch Year", "Registration Date", "Registration Time" }));
@@ -186,146 +185,146 @@ public class Admin_Screen {
 		table.getColumnModel().getColumn(10).setPreferredWidth(115);
 		table.getColumnModel().getColumn(10).setMinWidth(25);
 	}
-	 
-	 void updateStudentDataTableConfig(){
-		 updatetable.setModel(new DefaultTableModel(new Object[][] {},
-					new String[] { "Name", "Email Id", "PRN", "DOB", "Username", "Academic year", "Course", "Address",
-							"Batch Year", "Registration Date", "Registration Time" }));
-			updatetable.getColumnModel().getColumn(0).setPreferredWidth(120);
-			updatetable.getColumnModel().getColumn(0).setMinWidth(40);
-			updatetable.getColumnModel().getColumn(1).setPreferredWidth(120);
-			updatetable.getColumnModel().getColumn(1).setMinWidth(25);
-			updatetable.getColumnModel().getColumn(2).setPreferredWidth(120);
-			updatetable.getColumnModel().getColumn(2).setMinWidth(25);
-			updatetable.getColumnModel().getColumn(3).setPreferredWidth(120);
-			updatetable.getColumnModel().getColumn(3).setMinWidth(25);
-			updatetable.getColumnModel().getColumn(4).setPreferredWidth(120);
-			updatetable.getColumnModel().getColumn(4).setMinWidth(25);
-			updatetable.getColumnModel().getColumn(5).setPreferredWidth(110);
-			updatetable.getColumnModel().getColumn(5).setMinWidth(25);
-			updatetable.getColumnModel().getColumn(6).setPreferredWidth(170);
-			updatetable.getColumnModel().getColumn(6).setMinWidth(25);
-			updatetable.getColumnModel().getColumn(7).setPreferredWidth(122);
-			updatetable.getColumnModel().getColumn(7).setMinWidth(25);
-			updatetable.getColumnModel().getColumn(8).setPreferredWidth(90);
-			updatetable.getColumnModel().getColumn(8).setMinWidth(25);
-			updatetable.getColumnModel().getColumn(9).setPreferredWidth(110);
-			updatetable.getColumnModel().getColumn(9).setMinWidth(25);
-			updatetable.getColumnModel().getColumn(10).setPreferredWidth(115);
-			updatetable.getColumnModel().getColumn(10).setMinWidth(25);
-	 }
-	 
-	 void studentLogTableConfig(){
-		 stdLog_table.setModel(new DefaultTableModel(new Object[][] {}, new String[] { "Session Id", "Username",
-					"IP Address", "Status", "Date", "Login Time", "Logout Time" }));
-			stdLog_table.getColumnModel().getColumn(0).setPreferredWidth(109);
-			stdLog_table.getColumnModel().getColumn(0).setMinWidth(25);
-			stdLog_table.getColumnModel().getColumn(1).setPreferredWidth(129);
-			stdLog_table.getColumnModel().getColumn(1).setMinWidth(25);
-			stdLog_table.getColumnModel().getColumn(2).setPreferredWidth(180);
-			stdLog_table.getColumnModel().getColumn(2).setMinWidth(25);
-			stdLog_table.getColumnModel().getColumn(3).setPreferredWidth(116);
-			stdLog_table.getColumnModel().getColumn(3).setMinWidth(25);
-			stdLog_table.getColumnModel().getColumn(4).setPreferredWidth(130);
-			stdLog_table.getColumnModel().getColumn(4).setMinWidth(25);
-			stdLog_table.getColumnModel().getColumn(5).setPreferredWidth(130);
-			stdLog_table.getColumnModel().getColumn(5).setMinWidth(25);
-			stdLog_table.getColumnModel().getColumn(6).setPreferredWidth(123);
-			stdLog_table.getColumnModel().getColumn(6).setMinWidth(25);
-			stdLog_table.setFont(new Font("Segoe UI", Font.BOLD, 16));
-	 }
-	 
-	 void updateRewardTableConfig(){
-			update_reward_table.setModel(new DefaultTableModel(new Object[][] {},
-					new String[] { "id", "name", "Points", "Description", "image", "Categorie" }));
-			update_reward_table.getColumnModel().getColumn(0).setPreferredWidth(123);
-			update_reward_table.getColumnModel().getColumn(0).setMinWidth(30);
-			update_reward_table.getColumnModel().getColumn(1).setPreferredWidth(176);
-			update_reward_table.getColumnModel().getColumn(1).setMinWidth(30);
-			update_reward_table.getColumnModel().getColumn(2).setMinWidth(25);
-			update_reward_table.getColumnModel().getColumn(3).setPreferredWidth(148);
-			update_reward_table.getColumnModel().getColumn(3).setMinWidth(25);
-			update_reward_table.getColumnModel().getColumn(4).setPreferredWidth(161);
-			update_reward_table.getColumnModel().getColumn(4).setMinWidth(30);
-			update_reward_table.getColumnModel().getColumn(5).setMinWidth(25);
-	 }
-	
-	 void redeemRecordTableConfig(){
-		 redeem_record.setModel(new DefaultTableModel(new Object[][] {}, new String[] { "Reward Id", "Reward Category",
-					"Reward User name", "Reward User Email Id", "Unique Codes" }));
-			redeem_record.getColumnModel().getColumn(0).setPreferredWidth(98);
-			redeem_record.getColumnModel().getColumn(0).setMinWidth(25);
-			redeem_record.getColumnModel().getColumn(1).setPreferredWidth(152);
-			redeem_record.getColumnModel().getColumn(1).setMinWidth(25);
-			redeem_record.getColumnModel().getColumn(2).setPreferredWidth(202);
-			redeem_record.getColumnModel().getColumn(2).setMinWidth(25);
-			redeem_record.getColumnModel().getColumn(3).setPreferredWidth(201);
-			redeem_record.getColumnModel().getColumn(3).setMinWidth(25);
-			redeem_record.getColumnModel().getColumn(4).setPreferredWidth(139);
-			redeem_record.getColumnModel().getColumn(4).setMinWidth(25);
-			redeem_record.setBackground(new Color(240, 248, 255));
-	 }
-	 
-	 void allQuestionDisplayForQuizTableConfig(){
-		 allquestiontable.setModel(new DefaultTableModel(new Object[][] {},
-					new String[] { "Question Id", "Question", "Option 1", "Option 2", "Option 3", "Option 4", "Answer" }));
-			allquestiontable.getColumnModel().getColumn(0).setPreferredWidth(86);
-			allquestiontable.getColumnModel().getColumn(0).setMinWidth(25);
-			allquestiontable.getColumnModel().getColumn(1).setPreferredWidth(185);
-			allquestiontable.getColumnModel().getColumn(1).setMinWidth(25);
-			allquestiontable.getColumnModel().getColumn(2).setPreferredWidth(150);
-			allquestiontable.getColumnModel().getColumn(2).setMinWidth(25);
-			allquestiontable.getColumnModel().getColumn(3).setPreferredWidth(150);
-			allquestiontable.getColumnModel().getColumn(3).setMinWidth(25);
-			allquestiontable.getColumnModel().getColumn(4).setPreferredWidth(150);
-			allquestiontable.getColumnModel().getColumn(4).setMinWidth(25);
-			allquestiontable.getColumnModel().getColumn(5).setPreferredWidth(150);
-			allquestiontable.getColumnModel().getColumn(5).setMinWidth(25);
-			allquestiontable.getColumnModel().getColumn(6).setPreferredWidth(150);
-			allquestiontable.getColumnModel().getColumn(6).setMinWidth(25);
-			allquestiontable.setBackground(new Color(255, 255, 153));
-	 }
-	 
-	 void redeemPointsTableConfig(){
-		 reward_point_table.setModel(new DefaultTableModel(new Object[][] {},
-					new String[] { "Student Name", "Student Email", "Student PRN", "Reward Points" }));
-			reward_point_table.getColumnModel().getColumn(0).setPreferredWidth(197);
-			reward_point_table.getColumnModel().getColumn(0).setMinWidth(25);
-			reward_point_table.getColumnModel().getColumn(1).setPreferredWidth(184);
-			reward_point_table.getColumnModel().getColumn(1).setMinWidth(25);
-			reward_point_table.getColumnModel().getColumn(2).setPreferredWidth(157);
-			reward_point_table.getColumnModel().getColumn(2).setMinWidth(25);
-			reward_point_table.getColumnModel().getColumn(3).setPreferredWidth(159);
-			reward_point_table.getColumnModel().getColumn(3).setMinWidth(25);
-			reward_point_table.setFont(new Font("Segoe UI", Font.BOLD, 16));
-	 }
-	
-	 void pointsTableConfig(){
-		 pointTable.setModel(
-					new DefaultTableModel(new Object[][] {}, new String[] { "Student Email", "Marks", "Points" }));
-			pointTable.getColumnModel().getColumn(0).setPreferredWidth(148);
-			pointTable.getColumnModel().getColumn(0).setMinWidth(25);
-			pointTable.getColumnModel().getColumn(1).setPreferredWidth(129);
-			pointTable.getColumnModel().getColumn(1).setMinWidth(25);
-			pointTable.getColumnModel().getColumn(2).setPreferredWidth(125);
-			pointTable.getColumnModel().getColumn(2).setMinWidth(25);
-	 }
-	 
-	 void feedBackTableConfig(){
-		 feedTable.setModel(new DefaultTableModel(new Object[][] {},
-					new String[] { "Name", "Email Id", "Subject", "Message", "Status" }));
-			feedTable.getColumnModel().getColumn(0).setPreferredWidth(152);
-			feedTable.getColumnModel().getColumn(0).setMinWidth(25);
-			feedTable.getColumnModel().getColumn(1).setPreferredWidth(181);
-			feedTable.getColumnModel().getColumn(1).setMinWidth(25);
-			feedTable.getColumnModel().getColumn(2).setPreferredWidth(127);
-			feedTable.getColumnModel().getColumn(2).setMinWidth(25);
-			feedTable.getColumnModel().getColumn(3).setPreferredWidth(311);
-			feedTable.getColumnModel().getColumn(3).setMinWidth(25);
-			feedTable.getColumnModel().getColumn(4).setPreferredWidth(100);
-			feedTable.getColumnModel().getColumn(4).setMinWidth(25);
-			feedTable.setFont(new Font("Segoe UI", Font.BOLD, 16));
-	 }
+
+	void updateStudentDataTableConfig() {
+		updatetable.setModel(new DefaultTableModel(new Object[][] {},
+				new String[] { "Name", "Email Id", "PRN", "DOB", "Username", "Academic year", "Course", "Address",
+						"Batch Year", "Registration Date", "Registration Time" }));
+		updatetable.getColumnModel().getColumn(0).setPreferredWidth(120);
+		updatetable.getColumnModel().getColumn(0).setMinWidth(40);
+		updatetable.getColumnModel().getColumn(1).setPreferredWidth(120);
+		updatetable.getColumnModel().getColumn(1).setMinWidth(25);
+		updatetable.getColumnModel().getColumn(2).setPreferredWidth(120);
+		updatetable.getColumnModel().getColumn(2).setMinWidth(25);
+		updatetable.getColumnModel().getColumn(3).setPreferredWidth(120);
+		updatetable.getColumnModel().getColumn(3).setMinWidth(25);
+		updatetable.getColumnModel().getColumn(4).setPreferredWidth(120);
+		updatetable.getColumnModel().getColumn(4).setMinWidth(25);
+		updatetable.getColumnModel().getColumn(5).setPreferredWidth(110);
+		updatetable.getColumnModel().getColumn(5).setMinWidth(25);
+		updatetable.getColumnModel().getColumn(6).setPreferredWidth(170);
+		updatetable.getColumnModel().getColumn(6).setMinWidth(25);
+		updatetable.getColumnModel().getColumn(7).setPreferredWidth(122);
+		updatetable.getColumnModel().getColumn(7).setMinWidth(25);
+		updatetable.getColumnModel().getColumn(8).setPreferredWidth(90);
+		updatetable.getColumnModel().getColumn(8).setMinWidth(25);
+		updatetable.getColumnModel().getColumn(9).setPreferredWidth(110);
+		updatetable.getColumnModel().getColumn(9).setMinWidth(25);
+		updatetable.getColumnModel().getColumn(10).setPreferredWidth(115);
+		updatetable.getColumnModel().getColumn(10).setMinWidth(25);
+	}
+
+	void studentLogTableConfig() {
+		stdLog_table.setModel(new DefaultTableModel(new Object[][] {}, new String[] { "Session Id", "Username",
+				"IP Address", "Status", "Date", "Login Time", "Logout Time" }));
+		stdLog_table.getColumnModel().getColumn(0).setPreferredWidth(109);
+		stdLog_table.getColumnModel().getColumn(0).setMinWidth(25);
+		stdLog_table.getColumnModel().getColumn(1).setPreferredWidth(129);
+		stdLog_table.getColumnModel().getColumn(1).setMinWidth(25);
+		stdLog_table.getColumnModel().getColumn(2).setPreferredWidth(180);
+		stdLog_table.getColumnModel().getColumn(2).setMinWidth(25);
+		stdLog_table.getColumnModel().getColumn(3).setPreferredWidth(116);
+		stdLog_table.getColumnModel().getColumn(3).setMinWidth(25);
+		stdLog_table.getColumnModel().getColumn(4).setPreferredWidth(130);
+		stdLog_table.getColumnModel().getColumn(4).setMinWidth(25);
+		stdLog_table.getColumnModel().getColumn(5).setPreferredWidth(130);
+		stdLog_table.getColumnModel().getColumn(5).setMinWidth(25);
+		stdLog_table.getColumnModel().getColumn(6).setPreferredWidth(123);
+		stdLog_table.getColumnModel().getColumn(6).setMinWidth(25);
+		stdLog_table.setFont(new Font("Segoe UI", Font.BOLD, 16));
+	}
+
+	void updateRewardTableConfig() {
+		update_reward_table.setModel(new DefaultTableModel(new Object[][] {},
+				new String[] { "id", "name", "Points", "Description", "image", "Categorie" }));
+		update_reward_table.getColumnModel().getColumn(0).setPreferredWidth(123);
+		update_reward_table.getColumnModel().getColumn(0).setMinWidth(30);
+		update_reward_table.getColumnModel().getColumn(1).setPreferredWidth(176);
+		update_reward_table.getColumnModel().getColumn(1).setMinWidth(30);
+		update_reward_table.getColumnModel().getColumn(2).setMinWidth(25);
+		update_reward_table.getColumnModel().getColumn(3).setPreferredWidth(148);
+		update_reward_table.getColumnModel().getColumn(3).setMinWidth(25);
+		update_reward_table.getColumnModel().getColumn(4).setPreferredWidth(161);
+		update_reward_table.getColumnModel().getColumn(4).setMinWidth(30);
+		update_reward_table.getColumnModel().getColumn(5).setMinWidth(25);
+	}
+
+	void redeemRecordTableConfig() {
+		redeem_record.setModel(new DefaultTableModel(new Object[][] {}, new String[] { "Reward Id", "Reward Category",
+				"Reward User name", "Reward User Email Id", "Unique Codes" }));
+		redeem_record.getColumnModel().getColumn(0).setPreferredWidth(98);
+		redeem_record.getColumnModel().getColumn(0).setMinWidth(25);
+		redeem_record.getColumnModel().getColumn(1).setPreferredWidth(152);
+		redeem_record.getColumnModel().getColumn(1).setMinWidth(25);
+		redeem_record.getColumnModel().getColumn(2).setPreferredWidth(202);
+		redeem_record.getColumnModel().getColumn(2).setMinWidth(25);
+		redeem_record.getColumnModel().getColumn(3).setPreferredWidth(201);
+		redeem_record.getColumnModel().getColumn(3).setMinWidth(25);
+		redeem_record.getColumnModel().getColumn(4).setPreferredWidth(139);
+		redeem_record.getColumnModel().getColumn(4).setMinWidth(25);
+		redeem_record.setBackground(new Color(240, 248, 255));
+	}
+
+	void allQuestionDisplayForQuizTableConfig() {
+		allquestiontable.setModel(new DefaultTableModel(new Object[][] {},
+				new String[] { "Question Id", "Question", "Option 1", "Option 2", "Option 3", "Option 4", "Answer" }));
+		allquestiontable.getColumnModel().getColumn(0).setPreferredWidth(86);
+		allquestiontable.getColumnModel().getColumn(0).setMinWidth(25);
+		allquestiontable.getColumnModel().getColumn(1).setPreferredWidth(185);
+		allquestiontable.getColumnModel().getColumn(1).setMinWidth(25);
+		allquestiontable.getColumnModel().getColumn(2).setPreferredWidth(150);
+		allquestiontable.getColumnModel().getColumn(2).setMinWidth(25);
+		allquestiontable.getColumnModel().getColumn(3).setPreferredWidth(150);
+		allquestiontable.getColumnModel().getColumn(3).setMinWidth(25);
+		allquestiontable.getColumnModel().getColumn(4).setPreferredWidth(150);
+		allquestiontable.getColumnModel().getColumn(4).setMinWidth(25);
+		allquestiontable.getColumnModel().getColumn(5).setPreferredWidth(150);
+		allquestiontable.getColumnModel().getColumn(5).setMinWidth(25);
+		allquestiontable.getColumnModel().getColumn(6).setPreferredWidth(150);
+		allquestiontable.getColumnModel().getColumn(6).setMinWidth(25);
+		allquestiontable.setBackground(new Color(255, 255, 153));
+	}
+
+	void redeemPointsTableConfig() {
+		reward_point_table.setModel(new DefaultTableModel(new Object[][] {},
+				new String[] { "Student Name", "Student Email", "Student PRN", "Reward Points" }));
+		reward_point_table.getColumnModel().getColumn(0).setPreferredWidth(197);
+		reward_point_table.getColumnModel().getColumn(0).setMinWidth(25);
+		reward_point_table.getColumnModel().getColumn(1).setPreferredWidth(184);
+		reward_point_table.getColumnModel().getColumn(1).setMinWidth(25);
+		reward_point_table.getColumnModel().getColumn(2).setPreferredWidth(157);
+		reward_point_table.getColumnModel().getColumn(2).setMinWidth(25);
+		reward_point_table.getColumnModel().getColumn(3).setPreferredWidth(159);
+		reward_point_table.getColumnModel().getColumn(3).setMinWidth(25);
+		reward_point_table.setFont(new Font("Segoe UI", Font.BOLD, 16));
+	}
+
+	void pointsTableConfig() {
+		pointTable.setModel(
+				new DefaultTableModel(new Object[][] {}, new String[] { "Student Email", "Marks", "Points" }));
+		pointTable.getColumnModel().getColumn(0).setPreferredWidth(148);
+		pointTable.getColumnModel().getColumn(0).setMinWidth(25);
+		pointTable.getColumnModel().getColumn(1).setPreferredWidth(129);
+		pointTable.getColumnModel().getColumn(1).setMinWidth(25);
+		pointTable.getColumnModel().getColumn(2).setPreferredWidth(125);
+		pointTable.getColumnModel().getColumn(2).setMinWidth(25);
+	}
+
+	void feedBackTableConfig() {
+		feedTable.setModel(new DefaultTableModel(new Object[][] {},
+				new String[] { "Name", "Email Id", "Subject", "Message", "Status" }));
+		feedTable.getColumnModel().getColumn(0).setPreferredWidth(152);
+		feedTable.getColumnModel().getColumn(0).setMinWidth(25);
+		feedTable.getColumnModel().getColumn(1).setPreferredWidth(181);
+		feedTable.getColumnModel().getColumn(1).setMinWidth(25);
+		feedTable.getColumnModel().getColumn(2).setPreferredWidth(127);
+		feedTable.getColumnModel().getColumn(2).setMinWidth(25);
+		feedTable.getColumnModel().getColumn(3).setPreferredWidth(311);
+		feedTable.getColumnModel().getColumn(3).setMinWidth(25);
+		feedTable.getColumnModel().getColumn(4).setPreferredWidth(100);
+		feedTable.getColumnModel().getColumn(4).setMinWidth(25);
+		feedTable.setFont(new Font("Segoe UI", Font.BOLD, 16));
+	}
 
 	/**
 	 * Launch the application.
@@ -1325,7 +1324,7 @@ public class Admin_Screen {
 		table.setRowHeight(30);
 		table.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		scrollPane.setViewportView(table);
-		
+
 		manageStudentTableConfig();
 
 		JLabel lblSearchBy = new JLabel("Sort By");
@@ -1334,18 +1333,129 @@ public class Admin_Screen {
 		lblSearchBy.setBounds(12, 54, 80, 27);
 		Manage_Student.add(lblSearchBy);
 
-		String branch[] = { " ", "First Year", "Second Year", "Third Year", "Fourth Year" };
+		String branch[] = { "Select One", "First Year", "Second Year", "Third Year", "Fourth Year" };
 
 		JComboBox yearSerch = new JComboBox(branch);
+		yearSerch.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				String course, year;
+
+				course = (String) courseSearch.getSelectedItem();
+				year = (String) yearSerch.getSelectedItem();
+
+				manageStudentTableConfig();
+				Connect co = new Connect();
+				co.cLogin();
+				try {
+					Statement st = co.conn.createStatement();
+					String Query = "select * from student_registration where std_year='" + year + "' and std_course='"
+							+ course + "'";
+					String byYear = "select * from student_registration where std_year='" + year + "'";
+					String byCourse = "select * from student_registration where std_course='" + course + "'";
+					String allData = "select * from student_registration";
+					if (year.equals("Select One") && course.equals("Select One")) {
+						co.rs = st.executeQuery(allData);
+					} else {
+						if (year.equals("Select One") && !course.equals("Select One")) {
+							co.rs = st.executeQuery(byCourse);
+						}
+						if (course.equals("Select One") && !year.equals("Select One")) {
+							co.rs = st.executeQuery(byYear);
+						}
+						if (!course.equals("Select One") && !year.equals("Select One")) {
+							co.rs = st.executeQuery(Query);
+						}
+					}
+
+					System.out.println();
+					while (co.rs.next()) {
+						mname = co.rs.getString("std_name");
+						memail = co.rs.getString("std_mailid");
+						mprn = co.rs.getString("std_prn");
+						mdob = co.rs.getString("std_dob");
+						musername = co.rs.getString("std_username");
+						macadi = co.rs.getString("std_year");
+						mcourse = co.rs.getString("std_course");
+						mbatch = co.rs.getString("std_batchYear");
+						madress = co.rs.getString("std_address");
+						mrdate = co.rs.getString("date");
+						mrtime = co.rs.getString("time");
+
+						String todata[] = { mname, memail, mprn, mdob, musername, macadi, mcourse, madress, mbatch,
+								mrdate, mrtime };
+						DefaultTableModel df = (DefaultTableModel) table.getModel();
+						df.addRow(todata);
+					}
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		});
 		yearSerch.setFont(new Font("Segoe UI", Font.BOLD, 16));
 		yearSerch.setBackground(new Color(153, 255, 204));
 		yearSerch.setBounds(93, 52, 172, 30);
 		Manage_Student.add(yearSerch);
 
-		String course[] = { " ", "Computer Engineering", "Mechanical Engineering", "Electrical Engineering",
+		String course[] = { "Select One", "Computer Engineering", "Mechanical Engineering", "Electrical Engineering",
 				"IT Engineering", "Chemical Engineering" };
 
-		JComboBox courseSearch = new JComboBox(course);
+		courseSearch = new JComboBox(course);
+		courseSearch.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String course, year;
+
+				course = (String) courseSearch.getSelectedItem();
+				year = (String) yearSerch.getSelectedItem();
+
+				manageStudentTableConfig();
+				Connect co = new Connect();
+				co.cLogin();
+				try {
+					Statement st = co.conn.createStatement();
+					String Query = "select * from student_registration where std_year='" + year + "' and std_course='"
+							+ course + "'";
+					String byYear = "select * from student_registration where std_year='" + year + "'";
+					String byCourse = "select * from student_registration where std_course='" + course + "'";
+					String allData = "select * from student_registration";
+					if (year.equals("Select One") && course.equals("Select One")) {
+						co.rs = st.executeQuery(allData);
+					} else {
+
+						if (year.equals("Select One") && !course.equals("Select One")) {
+							co.rs = st.executeQuery(byCourse);
+						}
+						if (course.equals("Select One") && !year.equals("Select One")) {
+							co.rs = st.executeQuery(byYear);
+						}
+						if (!course.equals("Select One") && !year.equals("Select One")) {
+							co.rs = st.executeQuery(Query);
+						}
+					}
+
+					System.out.println();
+					while (co.rs.next()) {
+						mname = co.rs.getString("std_name");
+						memail = co.rs.getString("std_mailid");
+						mprn = co.rs.getString("std_prn");
+						mdob = co.rs.getString("std_dob");
+						musername = co.rs.getString("std_username");
+						macadi = co.rs.getString("std_year");
+						mcourse = co.rs.getString("std_course");
+						mbatch = co.rs.getString("std_batchYear");
+						madress = co.rs.getString("std_address");
+						mrdate = co.rs.getString("date");
+						mrtime = co.rs.getString("time");
+
+						String todata[] = { mname, memail, mprn, mdob, musername, macadi, mcourse, madress, mbatch,
+								mrdate, mrtime };
+						DefaultTableModel df = (DefaultTableModel) table.getModel();
+						df.addRow(todata);
+					}
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
 		courseSearch.setFont(new Font("Segoe UI", Font.BOLD, 16));
 		courseSearch.setBackground(new Color(153, 255, 204));
 		courseSearch.setBounds(277, 51, 210, 30);
@@ -1396,52 +1506,6 @@ public class Admin_Screen {
 		txtSearch.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(0, 0, 0)));
 		txtSearch.setBounds(823, 51, 210, 30);
 		Manage_Student.add(txtSearch);
-
-		JLabel label_4 = new JLabel("");
-		label_4.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				String course, year;
-				course = (String) courseSearch.getSelectedItem();
-				year = (String) yearSerch.getSelectedItem();
-				manageStudentTableConfig();
-				Connect co = new Connect();
-				co.cLogin();
-				try {
-					Statement st = co.conn.createStatement();
-					String Query = "select * from student_registration where std_year='" + year + "' and std_course='"
-							+ course + "'";
-
-					co.rs = st.executeQuery(Query);
-
-					while (co.rs.next()) {
-						mname = co.rs.getString("std_name");
-						memail = co.rs.getString("std_mailid");
-						mprn = co.rs.getString("std_prn");
-						mdob = co.rs.getString("std_dob");
-						musername = co.rs.getString("std_username");
-						macadi = co.rs.getString("std_year");
-						mcourse = co.rs.getString("std_course");
-						mbatch = co.rs.getString("std_batchYear");
-						madress = co.rs.getString("std_address");
-						mrdate = co.rs.getString("date");
-						mrtime = co.rs.getString("time");
-
-						String todata[] = { mname, memail, mprn, mdob, musername, macadi, mcourse, madress, mbatch,
-								mrdate, mrtime };
-						DefaultTableModel df = (DefaultTableModel) table.getModel();
-						df.addRow(todata);
-					}
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			}
-		});
-
-		label_4.setIcon(new ImageIcon(Admin_Screen.class.getResource("/Assets/Images/done_30px.png")));
-		label_4.setHorizontalAlignment(SwingConstants.RIGHT);
-		label_4.setBounds(494, 50, 30, 30);
-		Manage_Student.add(label_4);
 
 		JSeparator separator = new JSeparator();
 		separator.setOrientation(SwingConstants.VERTICAL);
@@ -4011,17 +4075,17 @@ public class Admin_Screen {
 		addPoints.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				
-				//uncomment the below part for getting data added by csv file 
-//				PointDestrubution pd = new PointDestrubution();
-//				pd.newData(path);
-//				pointsTableConfig();
-				
-//				Reward points added from api 
-				PointDestrubutionByApi pdapi=new PointDestrubutionByApi();
+
+				// uncomment the below part for getting data added by csv file
+				// PointDestrubution pd = new PointDestrubution();
+				// pd.newData(path);
+				// pointsTableConfig();
+
+				// Reward points added from api
+				PointDestrubutionByApi pdapi = new PointDestrubutionByApi();
 				pdapi.pointDestrubutionThroughDatabase();
 				JOptionPane.showMessageDialog(null, "Reward points added Successfully into the student Accounts...!");
-				
+
 				// From here data is reflacting to the record table
 				redeemPointsTableConfig();
 				Connect co = new Connect();
@@ -4045,9 +4109,8 @@ public class Admin_Screen {
 				} catch (SQLException e1) {
 
 					e1.printStackTrace();
-				}				
-				
-				
+				}
+
 			}
 		});
 		addPoints.setHorizontalAlignment(SwingConstants.CENTER);
@@ -4322,12 +4385,12 @@ public class Admin_Screen {
 		label_22.setHorizontalAlignment(SwingConstants.CENTER);
 		label_22.setBounds(926, 564, 100, 35);
 		feedback.add(label_22);
-		
+
 		JPanel studentDrive = new JPanel();
 		studentDrive.setBackground(Color.WHITE);
 		tabbedPane.addTab("New tab", null, studentDrive, null);
 		studentDrive.setLayout(null);
-		
+
 		JLabel lblYetToAdded = new JLabel("YET to ADDED");
 		lblYetToAdded.setBounds(334, 227, 315, 114);
 		studentDrive.add(lblYetToAdded);

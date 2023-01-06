@@ -7,6 +7,9 @@ import javax.swing.JPanel;
 import java.awt.Color;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+
+import Student_Screens.Main_Dashbord;
+
 import java.awt.Font;
 import javax.swing.JTextPane;
 import javax.swing.JButton;
@@ -16,6 +19,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.awt.event.ActionEvent;
 import javax.swing.JScrollPane;
+import javax.swing.ImageIcon;
 
 public class Quiz_instruction {
 
@@ -91,6 +95,7 @@ public class Quiz_instruction {
 		panel_1.add(scrollPane);
 		
 		JTextPane txtpnDuringTheExam = new JTextPane();
+		txtpnDuringTheExam.setEditable(false);
 		scrollPane.setViewportView(txtpnDuringTheExam);
 		txtpnDuringTheExam.setFont(new Font("Segoe UI", Font.PLAIN, 16));
 		txtpnDuringTheExam.setText("During the Exam:\r\n\r\n1) The student may not use his/her notebook, course note, or recive help from proctor or any other outside source\r\n\r\n2) Student must complete 10 questions multiple choice exam within the 5 minute and also the each question have only 20 second of time, Time frame allocated for the exam\r\n\r\n3) Student must not stop the session and then return to it. This is important in online envornment where the system will \"time-out\" and not allow the student to re-enter the exam.\r\n\r\nNumber of question: 10\r\nTotal marks: 10\r\nReward points will be multiply by 10, eg. If student got 8 right answer means 8 marks and then 8*10 = 80 will be reward points\r\nExam Duration: 5 min\r\nAll the best....!");
@@ -110,7 +115,7 @@ public class Quiz_instruction {
 			}
 		});
 		btnNewButton.setFont(new Font("Segoe UI", Font.BOLD, 20));
-		btnNewButton.setBounds(377, 525, 178, 37);
+		btnNewButton.setBounds(314, 525, 178, 37);
 		panel.add(btnNewButton);
 		
 		JLabel lblQuizMenia = new JLabel("Quiz Mania");
@@ -119,5 +124,28 @@ public class Quiz_instruction {
 		lblQuizMenia.setFont(new Font("Segoe UI", Font.BOLD, 24));
 		lblQuizMenia.setBounds(364, 13, 191, 30);
 		panel.add(lblQuizMenia);
+		
+		JButton btnBack = new JButton("BACK");
+		btnBack.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				frame.dispose();
+				Main_Dashbord md=new Main_Dashbord();
+				md.frame.setVisible(true);
+			}
+		});
+		btnBack.setFont(new Font("Segoe UI", Font.BOLD, 20));
+		btnBack.setBounds(504, 525, 191, 37);
+		panel.add(btnBack);
+		
+		JButton button = new JButton("");
+		button.setIcon(new ImageIcon(Quiz_instruction.class.getResource("/Assets/Images/close_30px.png")));
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				System.exit(0);
+			}
+		});
+		button.setFont(new Font("Segoe UI", Font.BOLD, 16));
+		button.setBounds(922, 13, 30, 30);
+		panel.add(button);
 	}
 }
