@@ -126,6 +126,10 @@ public class Admin_Screen {
 	private JTextField femail;
 	private JTextField fsubject;
 
+	// checkbox declaration for update student
+	private JCheckBox unameCheck, uemailCheck, uprnCheck, udobCheck, ubatchCheck, ucourseCheck, uayCheck, uaddressCheck,
+			uusernameCheck;
+
 	// End
 
 	// Variables
@@ -347,6 +351,15 @@ public class Admin_Screen {
 	 */
 	public Admin_Screen() {
 		initialize();
+		feedTable.setDefaultEditor(Object.class, null);
+		pointTable.setDefaultEditor(Object.class, null);
+		reward_point_table.setDefaultEditor(Object.class, null);
+		allquestiontable.setDefaultEditor(Object.class, null);
+		redeem_record.setDefaultEditor(Object.class, null);
+		update_reward_table.setDefaultEditor(Object.class, null);
+		table.setDefaultEditor(Object.class, null);
+		stdLog_table.setDefaultEditor(Object.class, null);
+		updatetable.setDefaultEditor(Object.class, null);
 	}
 
 	/**
@@ -1725,6 +1738,7 @@ public class Admin_Screen {
 		Update_student.add(scrollPane_1);
 
 		updatetable = new JTable();
+		updatetable.setRowSelectionAllowed(false);
 		updatetable.setBackground(new Color(204, 255, 204));
 		updatetable.addMouseListener(new MouseAdapter() {
 			@Override
@@ -1755,6 +1769,46 @@ public class Admin_Screen {
 		updateStudentDataTableConfig();
 
 		updatesearch = new JTextField();
+		updatesearch.addCaretListener(new CaretListener() {
+			public void caretUpdate(CaretEvent arg0) {
+				String text = updatesearch.getText();
+				updateStudentDataTableConfig();
+				Connect co = new Connect();
+				co.cLogin();
+				if (!text.equals("")) {
+					try {
+						Statement st = co.conn.createStatement();
+						String Query = "select * from student_registration where std_prn='" + text + "' or std_mailid='"
+								+ text + "'";
+
+						co.rs = st.executeQuery(Query);
+
+						while (co.rs.next()) {
+							mname = co.rs.getString("std_name");
+							memail = co.rs.getString("std_mailid");
+							mprn = co.rs.getString("std_prn");
+							mdob = co.rs.getString("std_dob");
+							musername = co.rs.getString("std_username");
+							macadi = co.rs.getString("std_year");
+							mcourse = co.rs.getString("std_course");
+							mbatch = co.rs.getString("std_batchYear");
+							mrdate = co.rs.getString("date");
+							mrtime = co.rs.getString("time");
+							madress = co.rs.getString("std_address");
+
+							String todata[] = { mname, memail, mprn, mdob, musername, macadi, mcourse, madress, mbatch,
+									mrdate, mrtime };
+							DefaultTableModel df = (DefaultTableModel) updatetable.getModel();
+							df.addRow(todata);
+						}
+					} catch (SQLException e1) {
+						e1.printStackTrace();
+					}
+				} else {
+					updateStudentDataTableConfig();
+				}
+			}
+		});
 		updatesearch.setBackground(new Color(204, 255, 204));
 		updatesearch.setFont(new Font("Segoe UI", Font.BOLD, 16));
 		updatesearch.setColumns(10);
@@ -1999,13 +2053,66 @@ public class Admin_Screen {
 
 			}
 		});
-		lblUpdate.setBounds(382, 590, 100, 35);
+		lblUpdate.setBounds(313, 592, 100, 35);
 		Update_student.add(lblUpdate);
 
 		JLabel lblDelete = new JLabel("");
+		lblDelete.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+
+				int dialogButton = JOptionPane.YES_NO_OPTION;
+				JOptionPane.showConfirmDialog(null, "Are you sure to delete '" + uname.getText() + "'?", "WARNING",
+						dialogButton);
+				if (dialogButton == JOptionPane.YES_OPTION) {
+					if (!uemail.getText().equals("")) {
+						Statement st;
+						Connect co = new Connect();
+						co.cLogin();
+
+						String query = "DELETE FROM student_registration WHERE std_mailId='" + uemail.getText() + "'";
+						try {
+							st = co.conn.createStatement();
+							st.executeUpdate(query);
+							JOptionPane.showMessageDialog(null,
+									"'" + uname.getText() + "' Deleted successfully from database");
+							uname.setText("");
+							uusername.setText("");
+							uemail.setText("");
+							uaddress.setText("");
+							ucourse.setText("");
+							uayear.setText("");
+							udob.setText("");
+							uprn.setText("");
+							ubatch.setText("");
+							unameCheck.setSelected(false);
+							uemailCheck.setSelected(false);
+							uprnCheck.setSelected(false);
+							udobCheck.setSelected(false);
+							ubatchCheck.setSelected(false);
+							ucourseCheck.setSelected(false);
+							uayCheck.setSelected(false);
+							uaddressCheck.setSelected(false);
+							uusernameCheck.setSelected(false);
+							updatesearch.setText("");
+
+						} catch (SQLException e) {
+							e.printStackTrace();
+						}
+
+					} else {
+						JOptionPane.showMessageDialog(null, "Email id is empty for selected Student");
+					}
+
+				} else if (dialogButton == JOptionPane.NO_OPTION) {
+
+				}
+
+			}
+		});
 		lblDelete.setHorizontalAlignment(SwingConstants.CENTER);
 		lblDelete.setIcon(new ImageIcon(Admin_Screen.class.getResource("/Assets/Images/delete_button.PNG")));
-		lblDelete.setBounds(520, 590, 100, 35);
+		lblDelete.setBounds(451, 592, 100, 35);
 		Update_student.add(lblDelete);
 
 		JLabel lblAddress = new JLabel("Address");
@@ -2024,7 +2131,7 @@ public class Admin_Screen {
 		uaddress.setFont(new Font("Segoe UI", Font.BOLD, 16));
 		scrollPane_2.setViewportView(uaddress);
 
-		JCheckBox unameCheck = new JCheckBox("");
+		unameCheck = new JCheckBox("");
 		unameCheck.setBackground(new Color(204, 255, 204));
 		unameCheck.addMouseListener(new MouseAdapter() {
 			@Override
@@ -2039,7 +2146,7 @@ public class Admin_Screen {
 		unameCheck.setBounds(422, 280, 25, 25);
 		Update_student.add(unameCheck);
 
-		JCheckBox uemailCheck = new JCheckBox("");
+		uemailCheck = new JCheckBox("");
 		uemailCheck.setBackground(new Color(204, 255, 204));
 		uemailCheck.addMouseListener(new MouseAdapter() {
 			@Override
@@ -2054,7 +2161,7 @@ public class Admin_Screen {
 		uemailCheck.setBounds(422, 354, 25, 25);
 		Update_student.add(uemailCheck);
 
-		JCheckBox uprnCheck = new JCheckBox("");
+		uprnCheck = new JCheckBox("");
 		uprnCheck.setBackground(new Color(204, 255, 204));
 		uprnCheck.addMouseListener(new MouseAdapter() {
 			@Override
@@ -2069,7 +2176,7 @@ public class Admin_Screen {
 		uprnCheck.setBounds(422, 430, 25, 25);
 		Update_student.add(uprnCheck);
 
-		JCheckBox udobCheck = new JCheckBox("");
+		udobCheck = new JCheckBox("");
 		udobCheck.setBackground(new Color(204, 255, 204));
 		udobCheck.addMouseListener(new MouseAdapter() {
 			@Override
@@ -2084,7 +2191,7 @@ public class Admin_Screen {
 		udobCheck.setBounds(422, 504, 25, 25);
 		Update_student.add(udobCheck);
 
-		JCheckBox ubatchCheck = new JCheckBox("");
+		ubatchCheck = new JCheckBox("");
 		ubatchCheck.setBackground(new Color(204, 255, 204));
 		ubatchCheck.addMouseListener(new MouseAdapter() {
 			@Override
@@ -2099,7 +2206,7 @@ public class Admin_Screen {
 		ubatchCheck.setBounds(745, 505, 25, 25);
 		Update_student.add(ubatchCheck);
 
-		JCheckBox ucourseCheck = new JCheckBox("");
+		ucourseCheck = new JCheckBox("");
 		ucourseCheck.setBackground(new Color(204, 255, 204));
 		ucourseCheck.addMouseListener(new MouseAdapter() {
 			@Override
@@ -2114,7 +2221,7 @@ public class Admin_Screen {
 		ucourseCheck.setBounds(745, 431, 25, 25);
 		Update_student.add(ucourseCheck);
 
-		JCheckBox uayCheck = new JCheckBox("");
+		uayCheck = new JCheckBox("");
 		uayCheck.setBackground(new Color(204, 255, 204));
 		uayCheck.addMouseListener(new MouseAdapter() {
 			@Override
@@ -2129,7 +2236,7 @@ public class Admin_Screen {
 		uayCheck.setBounds(745, 355, 25, 25);
 		Update_student.add(uayCheck);
 
-		JCheckBox uusernameCheck = new JCheckBox("");
+		uusernameCheck = new JCheckBox("");
 		uusernameCheck.setBackground(new Color(204, 255, 204));
 		uusernameCheck.addMouseListener(new MouseAdapter() {
 			@Override
@@ -2144,7 +2251,7 @@ public class Admin_Screen {
 		uusernameCheck.setBounds(745, 281, 25, 25);
 		Update_student.add(uusernameCheck);
 
-		JCheckBox uaddressCheck = new JCheckBox("");
+		uaddressCheck = new JCheckBox("");
 		uaddressCheck.setBackground(new Color(204, 255, 204));
 		uaddressCheck.addMouseListener(new MouseAdapter() {
 			@Override
@@ -2158,6 +2265,36 @@ public class Admin_Screen {
 		});
 		uaddressCheck.setBounds(1039, 354, 25, 25);
 		Update_student.add(uaddressCheck);
+
+		JLabel label_4 = new JLabel("");
+		label_4.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				updateStudentDataTableConfig();
+				updatesearch.setText("");
+				uname.setText("");
+				uusername.setText("");
+				uemail.setText("");
+				uaddress.setText("");
+				ucourse.setText("");
+				uayear.setText("");
+				udob.setText("");
+				uprn.setText("");
+				ubatch.setText("");
+				unameCheck.setSelected(false);
+				uemailCheck.setSelected(false);
+				uprnCheck.setSelected(false);
+				udobCheck.setSelected(false);
+				ubatchCheck.setSelected(false);
+				ucourseCheck.setSelected(false);
+				uayCheck.setSelected(false);
+				uaddressCheck.setSelected(false);
+				uusernameCheck.setSelected(false);
+			}
+		});
+		label_4.setIcon(new ImageIcon(Admin_Screen.class.getResource("/Assets/Images/clearall_reg.JPG")));
+		label_4.setBounds(592, 592, 100, 35);
+		Update_student.add(label_4);
 
 		JPanel Update_News = new JPanel();
 		Update_News.setBackground(new Color(204, 204, 255));
@@ -2412,8 +2549,9 @@ public class Admin_Screen {
 		});
 		stdlogSort.setIcon(new ImageIcon(Admin_Screen.class.getResource("/Assets/Images/done_30px.png")));
 		stdlogSort.setHorizontalAlignment(SwingConstants.RIGHT);
-		stdlogSort.setBounds(257, 65, 30, 30);
+		stdlogSort.setBounds(319, 65, 30, 30);
 		Student_Log.add(stdlogSort);
+		stdlogSort.setVisible(false);
 
 		JLabel label_7 = new JLabel("Sort By");
 		label_7.setHorizontalAlignment(SwingConstants.CENTER);
@@ -2422,9 +2560,64 @@ public class Admin_Screen {
 		Student_Log.add(label_7);
 
 		logsortBy = new JComboBox(new Object[] { "All", "ACTIVE", "DEACTIVATE" });
+		logsortBy.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				studentLogTableConfig();
+				String getcomponent = (String) logsortBy.getSelectedItem();
+				Connect connect = new Connect();
+				connect.cLogin();
+				studentLogTableConfig();
+				if (getcomponent.equals("All")) {
+					String str1 = "Select * from student_log";
+					try {
+						Statement st = connect.conn.createStatement();
+						connect.rs = st.executeQuery(str1);
+						while (connect.rs.next()) {
+							slogId = connect.rs.getString("session_id");
+							susername = connect.rs.getString("std_username");
+							sstatus = connect.rs.getString("std_status");
+							sdate = connect.rs.getString("date");
+							slogintime = connect.rs.getString("login_time");
+							slogouttime = connect.rs.getString("logout_time");
+							sipaddress = connect.rs.getString("std_ipaddress");
+
+							String todata[] = { slogId, susername, sipaddress, sstatus, sdate, slogintime,
+									slogouttime };
+							DefaultTableModel df = (DefaultTableModel) stdLog_table.getModel();
+							df.addRow(todata);
+						}
+					} catch (SQLException e1) {
+						e1.printStackTrace();
+					}
+				} else {
+					String str = "Select * from student_log where std_status='" + getcomponent + "'";
+					try {
+						Statement st = connect.conn.createStatement();
+						connect.rs = st.executeQuery(str);
+						while (connect.rs.next()) {
+							slogId = connect.rs.getString("session_id");
+							susername = connect.rs.getString("std_username");
+							sstatus = connect.rs.getString("std_status");
+							sdate = connect.rs.getString("date");
+							slogintime = connect.rs.getString("login_time");
+							slogouttime = connect.rs.getString("logout_time");
+							sipaddress = connect.rs.getString("std_ipaddress");
+
+							String todata[] = { slogId, susername, sipaddress, sstatus, sdate, slogintime,
+									slogouttime };
+							DefaultTableModel df = (DefaultTableModel) stdLog_table.getModel();
+							df.addRow(todata);
+						}
+					} catch (SQLException e1) {
+						e1.printStackTrace();
+					}
+				}
+
+			}
+		});
 		logsortBy.setFont(new Font("Segoe UI", Font.BOLD, 16));
 		logsortBy.setBackground(Color.WHITE);
-		logsortBy.setBounds(111, 66, 140, 30);
+		logsortBy.setBounds(111, 66, 179, 30);
 		Student_Log.add(logsortBy);
 
 		JLabel lblSearchByUsername = new JLabel("Search by Username");
@@ -2434,6 +2627,60 @@ public class Admin_Screen {
 		Student_Log.add(lblSearchByUsername);
 
 		stdloguname = new JTextField();
+		stdloguname.addCaretListener(new CaretListener() {
+			public void caretUpdate(CaretEvent arg0) {
+				studentLogTableConfig();
+				Connect connect = new Connect();
+				if(!stdloguname.getText().equals("")){
+					connect.cLogin();
+
+					String str = "Select * from student_log where std_username='" + stdloguname.getText() + "'";
+					try {
+						Statement st = connect.conn.createStatement();
+						connect.rs = st.executeQuery(str);
+						while (connect.rs.next()) {
+							slogId = connect.rs.getString("session_id");
+							susername = connect.rs.getString("std_username");
+							sstatus = connect.rs.getString("std_status");
+							sdate = connect.rs.getString("date");
+							slogintime = connect.rs.getString("login_time");
+							slogouttime = connect.rs.getString("logout_time");
+							sipaddress = connect.rs.getString("std_ipaddress");
+
+							String todata[] = { slogId, susername, sipaddress, sstatus, sdate, slogintime, slogouttime };
+							DefaultTableModel df = (DefaultTableModel) stdLog_table.getModel();
+							df.addRow(todata);
+						}
+					} catch (SQLException e1) {
+						e1.printStackTrace();
+					}
+				}else{
+					String str1 = "Select * from student_log";
+					try {
+						connect.cLogin();
+						Statement st = connect.conn.createStatement();
+						connect.rs = st.executeQuery(str1);
+						while (connect.rs.next()) {
+							slogId = connect.rs.getString("session_id");
+							susername = connect.rs.getString("std_username");
+							sstatus = connect.rs.getString("std_status");
+							sdate = connect.rs.getString("date");
+							slogintime = connect.rs.getString("login_time");
+							slogouttime = connect.rs.getString("logout_time");
+							sipaddress = connect.rs.getString("std_ipaddress");
+
+							String todata[] = { slogId, susername, sipaddress, sstatus, sdate, slogintime,
+									slogouttime };
+							DefaultTableModel df = (DefaultTableModel) stdLog_table.getModel();
+							df.addRow(todata);
+						}
+					} catch (SQLException e1) {
+						e1.printStackTrace();
+					}
+				}
+				
+			}
+		});
 		stdloguname.setFont(new Font("Segoe UI", Font.BOLD, 16));
 		stdloguname.setColumns(10);
 		stdloguname.setBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(0, 0, 0)));
@@ -2478,6 +2725,7 @@ public class Admin_Screen {
 		Student_Log.add(label_10);
 
 		JScrollPane scrollPane_6 = new JScrollPane();
+		scrollPane_6.setEnabled(false);
 		scrollPane_6.setBounds(30, 137, 1047, 604);
 		Student_Log.add(scrollPane_6);
 
@@ -2872,8 +3120,39 @@ public class Admin_Screen {
 		label_9.setHorizontalAlignment(SwingConstants.RIGHT);
 		label_9.setBounds(273, 53, 30, 30);
 		update_reward.add(label_9);
+		label_9.setVisible(false);
 
-		rewardCat = new JComboBox(new Object[] { "Learning", "Canteen", "Railway Pass" });
+		rewardCat = new JComboBox(new Object[] {"All", "Learning", "Canteen", "Railway Pass" });
+		rewardCat.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				MyQueryCat mq = new MyQueryCat();
+				String itemCat = (String) rewardCat.getSelectedItem();
+				ArrayList<Product2> list = mq.BindTable(itemCat);
+				String[] columnName = { "ID", "Name", "Points", "Description", "Image", "Categorie" };
+				Object[][] rows = new Object[list.size()][6];
+				for (int i = 0; i < list.size(); i++) {
+					rows[i][0] = list.get(i).getId();
+					rows[i][1] = list.get(i).getName();
+					rows[i][2] = list.get(i).getQunt();
+					rows[i][3] = list.get(i).getPrice();
+
+					if (list.get(i).getMyImage() != null) {
+						ImageIcon image = new ImageIcon(new ImageIcon(list.get(i).getMyImage()).getImage()
+								.getScaledInstance(150, 120, Image.SCALE_SMOOTH));
+						rows[i][4] = image;
+					} else {
+						rows[i][4] = null;
+					}
+
+					rows[i][5] = list.get(i).getCatId();
+
+				}
+				TheModel model = new TheModel(rows, columnName);
+				update_reward_table.setModel(model);
+				update_reward_table.setRowHeight(120);
+				update_reward_table.getColumnModel().getColumn(4).setPreferredWidth(150);
+			}
+		});
 		rewardCat.setFont(new Font("Segoe UI", Font.BOLD, 16));
 		rewardCat.setBackground(Color.WHITE);
 		rewardCat.setBounds(51, 53, 210, 30);
@@ -3127,6 +3406,17 @@ public class Admin_Screen {
 		add_reward.add(lblAdd);
 
 		JLabel lblClr = new JLabel("");
+		lblClr.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				reward_image.setIcon(null);
+				reward_name.setText("");
+				reward_point.setText("");
+				reward_description.setText("");
+				reward_category.setSelectedIndex(0);
+				
+			}
+		});
 		lblClr.setIcon(new ImageIcon(Admin_Screen.class.getResource("/Assets/Images/clearall_reg.JPG")));
 		lblClr.setHorizontalAlignment(SwingConstants.CENTER);
 		lblClr.setBounds(801, 512, 100, 35);
@@ -3166,7 +3456,64 @@ public class Admin_Screen {
 		scrollPane_14.setViewportView(redeem_record);
 		redeemRecordTableConfig();
 
-		comboBox = new JComboBox(new Object[] { "Learning", "Canteen", "Railway Pass" });
+		comboBox = new JComboBox(new Object[] {"All" ,"Learning", "Canteen", "Railway Pass" });
+		comboBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Connect co = new Connect();
+				co.cLogin();
+				if(!comboBox.getSelectedItem().toString().equals("All")){
+					redeemRecordTableConfig();
+
+					try {
+						Statement st = co.conn.createStatement();
+						String Query = "select * from reward_record where reward_category='"
+								+ comboBox.getSelectedItem().toString() + "'";
+
+						co.rs = st.executeQuery(Query);
+
+						while (co.rs.next()) {
+							String rmname = co.rs.getString("reward_id");
+							String rmemail = co.rs.getString("reward_category");
+							String rmprn = co.rs.getString("user_name");
+							String rmdob = co.rs.getString("user_email");
+							String rmusername = co.rs.getString("reward_unique_code");
+
+							String todata[] = { rmname, rmemail, rmprn, rmdob, rmusername };
+							DefaultTableModel df = (DefaultTableModel) redeem_record.getModel();
+							df.addRow(todata);
+
+						}
+
+					} catch (Exception e1) {
+
+					}
+				}else{
+					redeemRecordTableConfig();
+
+					try {
+						Statement st = co.conn.createStatement();
+						String Query = "select * from reward_record";
+
+						co.rs = st.executeQuery(Query);
+
+						while (co.rs.next()) {
+							String rmname = co.rs.getString("reward_id");
+							String rmemail = co.rs.getString("reward_category");
+							String rmprn = co.rs.getString("user_name");
+							String rmdob = co.rs.getString("user_email");
+							String rmusername = co.rs.getString("reward_unique_code");
+
+							String todata[] = { rmname, rmemail, rmprn, rmdob, rmusername };
+							DefaultTableModel df = (DefaultTableModel) redeem_record.getModel();
+							df.addRow(todata);
+						}
+					} catch (Exception e1) {
+
+					}
+					
+				}
+			}
+		});
 		comboBox.setFont(new Font("Segoe UI", Font.BOLD, 16));
 		comboBox.setBackground(new Color(240, 248, 255));
 		comboBox.setBounds(213, 51, 172, 30);
@@ -3209,6 +3556,7 @@ public class Admin_Screen {
 		label_16.setHorizontalAlignment(SwingConstants.RIGHT);
 		label_16.setBounds(397, 51, 30, 30);
 		RedeemRecord.add(label_16);
+		label_16.setVisible(false);
 
 		JLabel lblSortByCategory = new JLabel("Sort By Category :");
 		lblSortByCategory.setHorizontalAlignment(SwingConstants.CENTER);
