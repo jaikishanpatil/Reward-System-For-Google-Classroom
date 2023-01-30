@@ -61,11 +61,13 @@ import javax.swing.JTextArea;
 import javax.swing.JCheckBox;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.awt.event.ActionEvent;
 import javax.swing.event.CaretListener;
 import javax.swing.event.CaretEvent;
 import javax.swing.JTextPane;
 import java.awt.SystemColor;
+import java.awt.event.KeyAdapter;
 
 public class Admin_Screen {
 
@@ -3243,6 +3245,28 @@ public class Admin_Screen {
 		add_reward.add(reward_name);
 
 		reward_point = new JTextField();
+		reward_point.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent ke) {
+				String phonenumber = reward_point.getText();
+				int length = phonenumber.length();
+				char c = ke.getKeyChar();
+				if (ke.getKeyChar() >= '0' && ke.getKeyChar() <= '9') {
+					if (length < 4) {
+						reward_point.setEditable(true);
+					} else {
+						reward_point.setEditable(false);
+					}
+				} else {
+					if (ke.getExtendedKeyCode() == KeyEvent.VK_BACK_SPACE
+							|| ke.getExtendedKeyCode() == KeyEvent.VK_DELETE) {
+						reward_point.setEditable(true);
+					} else {
+						reward_point.setEditable(false);
+					}
+				}
+			}
+		});
 		reward_point.setBackground(SystemColor.inactiveCaptionBorder);
 		reward_point.setFont(new Font("Segoe UI", Font.BOLD, 16));
 		reward_point.setColumns(10);
@@ -4254,10 +4278,38 @@ public class Admin_Screen {
 		// ImageIcon(this.getClass().getResource("/search_30px.png")).getImage();
 		searchid.setIcon(new ImageIcon(Admin_Screen.class.getResource("/Assets/Images/search_30px.png")));
 		searchid.setHorizontalAlignment(SwingConstants.RIGHT);
-		searchid.setBounds(232, 53, 30, 30);
+		searchid.setBounds(455, 13, 30, 30);
 		updateQuziQuestions.add(searchid);
+		searchid.setVisible(false);
 
 		queidsearch = new JTextField();
+		queidsearch.addCaretListener(new CaretListener() {
+			public void caretUpdate(CaretEvent arg0) {
+				Connect co = new Connect();
+				co.cLogin();
+				String searchque = "select * from quiz_questions where q_id='" + queidsearch.getText() + "'";
+
+				Statement st;
+				try {
+					st = co.conn.createStatement();
+					co.rs = st.executeQuery(searchque);
+					if (co.rs.next()) {
+						squename.setText(co.rs.getString("q_name"));
+						sopt1.setText(co.rs.getString("q_opt1"));
+						sopt2.setText(co.rs.getString("q_opt2"));
+						sopt3.setText(co.rs.getString("q_opt3"));
+						sopt4.setText(co.rs.getString("q_opt4"));
+						sans.setText(co.rs.getString("q_answer"));
+						queidsearch.setEditable(false);
+					} else {
+						queidsearch.setEditable(true);
+					}
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
 		queidsearch.setFont(new Font("Segoe UI", Font.BOLD, 16));
 		queidsearch.setBounds(149, 53, 71, 30);
 		updateQuziQuestions.add(queidsearch);
@@ -4513,12 +4565,74 @@ public class Admin_Screen {
 		feedBackTableConfig();
 
 		JComboBox feedcategory = new JComboBox(new Object[] { "Technical Issue", "Update", "Rating" });
+		feedcategory.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				feedBackTableConfig();
+
+				Connect co = new Connect();
+				co.cLogin();
+				String qury = "select * from feedback where feed_subject='" + feedcategory.getSelectedItem().toString()
+						+ "'";
+				Statement st = null;
+				try {
+					st = co.conn.createStatement();
+					co.rs = st.executeQuery(qury);
+
+					while (co.rs.next()) {
+						String fdname = co.rs.getString("feed_name");
+						String fdemail = co.rs.getString("feed_email");
+						String fdsub = co.rs.getString("feed_subject");
+						String fdmsg = co.rs.getString("feed_message");
+						String fdstatus = co.rs.getString("feed_status");
+
+						String todata[] = { fdname, fdemail, fdsub, fdmsg, fdstatus };
+						DefaultTableModel df = (DefaultTableModel) feedTable.getModel();
+						df.addRow(todata);
+
+					}
+
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
 		feedcategory.setFont(new Font("Segoe UI", Font.BOLD, 16));
 		feedcategory.setBackground(Color.WHITE);
 		feedcategory.setBounds(626, 88, 210, 30);
 		feedback.add(feedcategory);
 
 		JComboBox feedStatus = new JComboBox(new Object[] { "Pending", "Read" });
+		feedStatus.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				feedBackTableConfig();
+
+				Connect co = new Connect();
+				co.cLogin();
+				String qury = "select * from feedback where feed_status='" + feedStatus.getSelectedItem().toString()
+						+ "'";
+				Statement st = null;
+				try {
+					st = co.conn.createStatement();
+					co.rs = st.executeQuery(qury);
+
+					while (co.rs.next()) {
+						String fdname = co.rs.getString("feed_name");
+						String fdemail = co.rs.getString("feed_email");
+						String fdsub = co.rs.getString("feed_subject");
+						String fdmsg = co.rs.getString("feed_message");
+						String fdstatus = co.rs.getString("feed_status");
+
+						String todata[] = { fdname, fdemail, fdsub, fdmsg, fdstatus };
+						DefaultTableModel df = (DefaultTableModel) feedTable.getModel();
+						df.addRow(todata);
+
+					}
+
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
 		feedStatus.setFont(new Font("Segoe UI", Font.BOLD, 16));
 		feedStatus.setBackground(Color.WHITE);
 		feedStatus.setBounds(217, 88, 160, 30);
@@ -4562,6 +4676,7 @@ public class Admin_Screen {
 		label_19.setHorizontalAlignment(SwingConstants.RIGHT);
 		label_19.setBounds(389, 88, 30, 30);
 		feedback.add(label_19);
+		label_19.setVisible(false);
 
 		JLabel lblSortByStatus = new JLabel("Sort By Status :");
 		lblSortByStatus.setHorizontalAlignment(SwingConstants.CENTER);
@@ -4606,6 +4721,7 @@ public class Admin_Screen {
 		label_23.setHorizontalAlignment(SwingConstants.RIGHT);
 		label_23.setBounds(848, 88, 30, 30);
 		feedback.add(label_23);
+		label_23.setVisible(false);
 
 		JLabel lblSortBySubject = new JLabel("Sort By Subject :");
 		lblSortBySubject.setHorizontalAlignment(SwingConstants.CENTER);
