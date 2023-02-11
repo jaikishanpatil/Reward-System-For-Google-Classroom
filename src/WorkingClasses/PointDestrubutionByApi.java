@@ -82,8 +82,6 @@ public class PointDestrubutionByApi {
 					ps1.setLong(2, points);
 					ps1.executeUpdate();
 					// Print the values
-					System.out.println("Name: " + email);
-					System.out.println("Age: " + points);
 
 				}
 				String query = "UPDATE student_reward_points t1 , temporytable t2 SET t1.reward_points= t1.reward_points + t2.temp_point WHERE t1.reward_email=t2.temp_email";

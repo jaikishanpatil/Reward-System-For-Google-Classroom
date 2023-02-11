@@ -24,7 +24,7 @@ public class Message extends SweetAlert {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Animation_Work/SweetAlart/checked.png"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/Animation_Work/SweetAlart/checked.png"))); // NOI18N
 
         button1.setText("OK");
         button1.setFont(new java.awt.Font("sansserif", 1, 15)); // NOI18N
