@@ -15,7 +15,7 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-public class SendEmailConfirmation {
+public class SendEmailConfirmation{
 	static int OTP;
 	public static String str1;
 	//EOTP_valid ev=new EOTP_valid();
@@ -28,8 +28,8 @@ public class SendEmailConfirmation {
 		properties.put("mail.smtp.host", "smtp.gmail.com");
 		properties.put("mail.smtp.port", "587");
 		
-		String myAccountEmail="gclassrewardsystem@gmail.com";
-		String password="Gclass@11223344";
+		String myAccountEmail=Credentials.username;
+		String password=Credentials.password;
 		
 		Session session=Session.getInstance(properties, new Authenticator(){
 			@Override

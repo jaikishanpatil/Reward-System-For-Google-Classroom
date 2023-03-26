@@ -17,6 +17,7 @@ import java.sql.Statement;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Properties;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.awt.event.MouseEvent;
@@ -35,7 +36,10 @@ import javax.swing.ImageIcon;
 import com.toedter.calendar.JDateChooser;
 
 import Assets.Animation_Work.ShortMessage.Notification;
+import Database.ConfirmationMailToUser;
 import Database.Connect;
+import Database.Credentials;
+import Database.RegisterConfirmationEmail;
 import Database.SendEmailConfirmation;
 import Database.SendEmailVerification;
 import WorkingClasses.EmailValidation;
@@ -67,6 +71,7 @@ public class Student_ragister {
 	EmailValidation validate = new EmailValidation();
 	JFrame frame;
 	String path;
+	int OTP;
 	private int xMouse;
 	JLabel stdProfImg, emailch;
 	private int yMouse;
@@ -88,10 +93,11 @@ public class Student_ragister {
 	static String confirmUsername;
 	static String confirmPassword;
 
-	String myAccountEmail = "gclassrewardsystem@gmail.com";
-	String password = "Gclass@11223344";
+	String myAccountEmail = Credentials.username;
+	String password = Credentials.password;
 
 	SendEmailVerification sev = new SendEmailVerification();
+	RegisterConfirmationEmail registerConfirmationEmail;
 
 	JLabel label_8;
 
@@ -360,12 +366,12 @@ public class Student_ragister {
 						co.rs = st.executeQuery(qu);
 						if (co.rs.next()) {
 							label_8.setIcon(
-									new ImageIcon(Student_ragister.class.getResource("/Assets/Images/reject_30px.png")));
+									new ImageIcon(Student_ragister.class.getResource("/Assets/Images/approve_30px.png")));
 							registration = true;
 
 						} else {
 							label_8.setIcon(
-									new ImageIcon(Student_ragister.class.getResource("/Assets/Images/approve_30px.png")));
+									new ImageIcon(Student_ragister.class.getResource("/Assets/Images/reject_30px.png")));
 							registration = false;
 						}
 						String qu1 = "select * from student_registration where std_mailid='" + temp + "'";
@@ -738,7 +744,7 @@ public class Student_ragister {
 
 				if (registration == true) {
 
-					if (otp.getText().equals(sev.str1)) {
+					if (otp.getText().equals(registerConfirmationEmail.str1)) {
 						Connect co = new Connect();
 						co.cLogin();
 
@@ -801,21 +807,12 @@ public class Student_ragister {
 								// Username and password along with confirmation
 								// message####################################################################
 
-								Properties properties = new Properties();
-								properties.put("mail.smtp.auth", "true");
-								properties.put("mail.smtp.starttls.enable", "true");
-								properties.put("mail.smtp.host", "smtp.gmail.com");
-								properties.put("mail.smtp.port", "587");
 
-								Session session = Session.getInstance(properties, new Authenticator() {
-									@Override
-									protected PasswordAuthentication getPasswordAuthentication() {
-										return new PasswordAuthentication(myAccountEmail, password);
-									}
-								});
-
-								Message message1 = prepareMessage(session, myAccountEmail, std_mailid.getText());
-								Transport.send(message1);
+								String subject="Registration To Reward System";
+								String messages="Congratulation You have successfully registered to Reward system for google classroom \n"
+										+ "Your Login crendiatiols are\n Username: " + confirmUsername + "\nPassword: " + confirmPassword
+										+ "\n " + " You have get 100 reward point as singup bonus";
+								ConfirmationMailToUser confirmationMailToUser = new ConfirmationMailToUser(std_mailid.getText(),subject,messages);
 
 							} catch (Exception ee) {
 								// TODO Auto-generated catch block
@@ -884,8 +881,7 @@ public class Student_ragister {
 					// sending OTP from here
 					try {
 						registerActionPerformed(e);
-						String temp1 = std_mailid.getText();
-						SendEmailVerification.sendmail(temp1);
+						registerConfirmationEmail =new RegisterConfirmationEmail(std_mailid.getText());
 
 					} catch (Exception ee) {
 

@@ -15,7 +15,9 @@ import javax.swing.table.DefaultTableModel;
 
 import Assets.Animation_Work.ShortMessage.Notification;
 import Assets.Animation_Work.SweetAlart.MessageForRewardRevoke;
+import Database.ConfirmationMailToUser;
 import Database.Connect;
+import Database.Credentials;
 import Database.SendEmailConfirmation;
 import Student_Screens.Main_Dashbord;
 import Student_Screens.UpdaterClass;
@@ -75,7 +77,7 @@ public class DBtoTable {
 	JLabel rdImage ;
 	JLabel showPoints;
 	JTextArea rdDescription;
-	String rewardCategory;
+	String rewardCategory,global_username,global_password;
 	static StringBuilder returnValue;
 	static int remainingPoint;
 	UpdaterClass ud=new UpdaterClass();
@@ -104,41 +106,41 @@ public class DBtoTable {
 		// Confirmation message through mail id 
 	
 
-		private static Message prepareMessage(Session session, String myAccountEmail ,String recepient){
-			try{
-				Message message=new MimeMessage(session);
-				message.setFrom(new InternetAddress(myAccountEmail));
-				message.setRecipient(Message.RecipientType.TO, new InternetAddress(recepient));
-				message.setSubject("Reward Redeem");
-				message.setText("Your reward redeem successfully\n"+"Your current point= "+remainingPoint+"\n Your reward id= "+rewardId+"\nReward name= "+rewardname+"\n"+"\nYour Reward Unique Coupan for redeem reward= "+returnValue);
-				return message;
-				
-			}catch(Exception ex){
-				Logger.getLogger(SendEmailConfirmation.class.getName()).log(Level.SEVERE,null,ex);
-				
-			}
-			return null;
-		}
+//		private static Message prepareMessage(Session session, String myAccountEmail ,String recepient){
+//			try{
+//				Message message=new MimeMessage(session);
+//				message.setFrom(new InternetAddress(myAccountEmail));
+//				message.setRecipient(Message.RecipientType.TO, new InternetAddress(recepient));
+//				message.setSubject("Reward Redeem");
+//				message.setText("Your reward redeem successfully\n"+"Your current point= "+remainingPoint+"\n Your reward id= "+rewardId+"\nReward name= "+rewardname+"\n"+"\nYour Reward Unique Coupan for redeem reward= "+returnValue);
+//				return message;
+//				
+//			}catch(Exception ex){
+//				Logger.getLogger(SendEmailConfirmation.class.getName()).log(Level.SEVERE,null,ex);
+//				
+//			}
+//			return null;
+//		}
 		
 	//########################## END ############
 		
 		
-		private static Message prepareMessageForVender(Session session, String myAccountEmail ,String recepient){
-			try{
-				Message message=new MimeMessage(session);
-				message.setFrom(new InternetAddress(myAccountEmail));
-				message.setRecipient(Message.RecipientType.TO, new InternetAddress(recepient));
-				message.setSubject("Reward Redeem");
-				uc.update();
-				message.setText("Student Name= "+uc.pname+"\nReward category= "+vendorCategory+"\nThe Unique Code is= "+returnValue+"\n\n Instruction: You can dete this mail after it been used");
-				return message;
-				
-			}catch(Exception ex){
-				Logger.getLogger(SendEmailConfirmation.class.getName()).log(Level.SEVERE,null,ex);
-				
-			}
-			return null;
-		}
+//		private static Message prepareMessageForVender(Session session, String myAccountEmail ,String recepient){
+//			try{
+//				Message message=new MimeMessage(session);
+//				message.setFrom(new InternetAddress(myAccountEmail));
+//				message.setRecipient(Message.RecipientType.TO, new InternetAddress(recepient));
+//				message.setSubject("Reward Redeem");
+//				uc.update();
+//				message.setText("Student Name= "+uc.pname+"\nReward category= "+vendorCategory+"\nThe Unique Code is= "+returnValue+"\n\n Instruction: You can delete this mail after it been used");
+//				return message;
+//				
+//			}catch(Exception ex){
+//				Logger.getLogger(SendEmailConfirmation.class.getName()).log(Level.SEVERE,null,ex);
+//				
+//			}
+//			return null;
+//		}
 
 	
 
@@ -162,6 +164,8 @@ public class DBtoTable {
 	 * Create the application.
 	 */
 	public DBtoTable() {
+		global_username=Credentials.username;
+		global_password=Credentials.password;
 		initialize();
 		
 	}
@@ -576,96 +580,37 @@ public class DBtoTable {
 								/*confirmUsername=std_username.getText();
 								confirmPassword=std_password.getText();*/
 	//##################################################Sending Redeem reward msg from here####################################################################
-								
-								Properties properties=new Properties();
-								properties.put("mail.smtp.auth","true");
-								properties.put("mail.smtp.starttls.enable","true");
-								properties.put("mail.smtp.host", "smtp.gmail.com");
-								properties.put("mail.smtp.port", "587");
-								
-								String myAccountEmail="rewardpoints06@gmail.com";
-								String password="reward@123";
-								
-								Session session=Session.getInstance(properties, new Authenticator(){
-									@Override
-									protected PasswordAuthentication getPasswordAuthentication(){
-										return new PasswordAuthentication(myAccountEmail,password);
-									}
-								});
-					
-								Message message1=prepareMessage(session,myAccountEmail,ud.pemail);	
-								Transport.send(message1);
-								
+								String subject="Reward Redeem";
+								String messages="Your reward redeem successfully\n"+"Your current point= "+remainingPoint+"\n Your reward id= "+rewardId+"\nReward name= "+rewardname+"\n"+"\nYour Reward Unique Coupan for redeem reward= "+returnValue;
+								ConfirmationMailToUser confirmationMailToUser= new ConfirmationMailToUser(ud.pemail,subject,messages);
 								//// Reward same unique code for that perticular vendor
 								
 								if(rewardCategory.equals("Learning")){
 									
 									vendorCategory="Learning";
-									Properties properties1=new Properties();
-									properties1.put("mail.smtp.auth","true");
-									properties1.put("mail.smtp.starttls.enable","true");
-									properties1.put("mail.smtp.host", "smtp.gmail.com");
-									properties1.put("mail.smtp.port", "587");
-									
-									String myAccountEmail1="rewardpoints06@gmail.com";
-									String password1="reward@123";
-									
-									Session session1=Session.getInstance(properties1, new Authenticator(){
-										@Override
-										protected PasswordAuthentication getPasswordAuthentication(){
-											return new PasswordAuthentication(myAccountEmail1,password1);
-										}
-									});
-						
-									Message message2=prepareMessageForVender(session1,myAccountEmail1,"johnc1572@gmail.com");	
-									Transport.send(message2);
+									uc.update();
+									String subjectVend="Reward Redeem";
+									String messagesVend="Student Name= "+uc.pname+"\nReward category= "+vendorCategory+"\nThe Unique Code is= "+returnValue+"\n\n Instruction: You can delete this mail after it been used";
+									ConfirmationMailToUser confirmationMailToUserVend=new ConfirmationMailToUser("johnc1572@gmail.com",subjectVend,messagesVend);
 								}else{
 									
 								}
 								if (rewardCategory.equals("Canteen")) {
 									vendorCategory="Canteen";
-									Properties properties1=new Properties();
-									properties1.put("mail.smtp.auth","true");
-									properties1.put("mail.smtp.starttls.enable","true");
-									properties1.put("mail.smtp.host", "smtp.gmail.com");
-									properties1.put("mail.smtp.port", "587");
-									
-									String myAccountEmail1="rewardpoints06@gmail.com";
-									String password1="reward@123";
-									
-									Session session1=Session.getInstance(properties1, new Authenticator(){
-										@Override
-										protected PasswordAuthentication getPasswordAuthentication(){
-											return new PasswordAuthentication(myAccountEmail1,password1);
-										}
-									});
-						
-									Message message2=prepareMessageForVender(session1,myAccountEmail1,"patiljaikishan1@gmail.com");	
-									Transport.send(message2);
+									uc.update();
+									String subjectVend="Reward Redeem";
+									String messagesVend="Student Name= "+uc.pname+"\nReward category= "+vendorCategory+"\nThe Unique Code is= "+returnValue+"\n\n Instruction: You can delete this mail after it been used";
+									ConfirmationMailToUser confirmationMailToUserVend=new ConfirmationMailToUser("patiljaikishan1@gmail.com",subjectVend,messagesVend);
 
 								} else {
 
 								}
 								if (rewardCategory.equals("Railway Pass")) {
 									vendorCategory="Railway Pass";
-									Properties properties1=new Properties();
-									properties1.put("mail.smtp.auth","true");
-									properties1.put("mail.smtp.starttls.enable","true");
-									properties1.put("mail.smtp.host", "smtp.gmail.com");
-									properties1.put("mail.smtp.port", "587");
-									
-									String myAccountEmail1="rewardpoints06@gmail.com";
-									String password1="reward@123";
-									
-									Session session1=Session.getInstance(properties1, new Authenticator(){
-										@Override
-										protected PasswordAuthentication getPasswordAuthentication(){
-											return new PasswordAuthentication(myAccountEmail1,password1);
-										}
-									});
-						
-									Message message2=prepareMessageForVender(session1,myAccountEmail1,"divyapatil7216@gmail.com");	
-									Transport.send(message2);
+									uc.update();
+									String subjectVend="Reward Redeem";
+									String messagesVend="Student Name= "+uc.pname+"\nReward category= "+vendorCategory+"\nThe Unique Code is= "+returnValue+"\n\n Instruction: You can delete this mail after it been used";
+									ConfirmationMailToUser confirmationMailToUserVend=new ConfirmationMailToUser("johnc1572@gmail.com",subjectVend,messagesVend);
 
 								} else {
 

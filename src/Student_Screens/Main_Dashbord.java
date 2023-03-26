@@ -43,6 +43,7 @@ import Database.Connect;
 import Components.Notepad_1_0.Notepad;
 import Components.Quiz_Menia.Quiz_instruction;
 import Components.Quiz_Menia.Student_Quiz;
+import Components.StudentDrive.StudentDrive;
 import Components.Student_Rewards.DBtoTable;
 
 import java.awt.Font;
@@ -993,11 +994,11 @@ public class Main_Dashbord {
 			}
 		});
 		label_12.setHorizontalAlignment(SwingConstants.CENTER);
-		label_12.setIcon(new ImageIcon(Main_Dashbord.class.getResource("/Assets/Images/notepad.png")));
+		label_12.setIcon(new ImageIcon(Main_Dashbord.class.getResource("/Assets/Images/google-drive-42.png")));
 		label_12.setBounds(56, 312, 50, 45);
 		panel.add(label_12);
 		
-		JLabel mainNotePad = new JLabel("NotePad");
+		JLabel mainNotePad = new JLabel("Student Drive\r\n");
 		mainNotePad.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent arg0) {
@@ -1009,7 +1010,10 @@ public class Main_Dashbord {
 			}
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				Notepad np=new Notepad();
+//				Notepad np=new Notepad();
+				StudentDrive st=new StudentDrive();
+				frame.dispose();
+				st.frame.setVisible(true);
 				
 				
 			}

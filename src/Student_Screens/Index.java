@@ -5,6 +5,7 @@ import java.awt.Image;
 
 import javax.swing.ImageIcon;
 
+import Database.Credentials;
 import Student_Screens.Login_Window;
 import Student_Screens.Splash;
 

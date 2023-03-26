@@ -44,13 +44,13 @@ public class Notification extends javax.swing.JComponent {
         dialog.add(this);
         dialog.setSize(getPreferredSize());
         if (type == Type.SUCCESS) {
-            lbIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Animation_Work/ShortMessage/sucess.png")));
+            lbIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/Animation_Work/ShortMessage/sucess.png")));
             lbMessage.setText("Success");
         } else if (type == Type.INFO) {
-            lbIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Animation_Work/ShortMessage/info.png")));
+            lbIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/Animation_Work/ShortMessage/info.png")));
             lbMessage.setText("Info");
         } else {
-            lbIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Animation_Work/ShortMessage/warning.png")));
+            lbIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/Animation_Work/ShortMessage/warning.png")));
             lbMessage.setText("Warning");
         }
         lbMessageText.setText(message);
@@ -229,7 +229,7 @@ public class Notification extends javax.swing.JComponent {
         cmdClose = new javax.swing.JButton();
 
         lbIcon.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Animation_Work/ShortMessage/sucess.png"))); // NOI18N
+        lbIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/Animation_Work/ShortMessage/sucess.png"))); // NOI18N
 
         panel.setOpaque(false);
 
@@ -261,7 +261,7 @@ public class Notification extends javax.swing.JComponent {
                 .addContainerGap())
         );
 
-        cmdClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Animation_Work/ShortMessage/close.png"))); // NOI18N
+        cmdClose.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Assets/Animation_Work/ShortMessage/close.png"))); // NOI18N
         cmdClose.setBorder(null);
         cmdClose.setContentAreaFilled(false);
         cmdClose.setFocusable(false);

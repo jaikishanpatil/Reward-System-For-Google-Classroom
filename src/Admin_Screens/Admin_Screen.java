@@ -53,6 +53,17 @@ import javax.swing.border.LineBorder;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
+
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.chart.plot.PiePlot;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.renderer.category.BarRenderer;
+import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.data.general.DefaultPieDataset;
+
 import javax.swing.ScrollPaneConstants;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
@@ -68,6 +79,7 @@ import javax.swing.event.CaretEvent;
 import javax.swing.JTextPane;
 import java.awt.SystemColor;
 import java.awt.event.KeyAdapter;
+import java.awt.BorderLayout;
 
 public class Admin_Screen {
 
@@ -83,6 +95,10 @@ public class Admin_Screen {
 	boolean pathSelect = false;
 	String tid = null;
 
+	//charts datat
+	JPanel pieChart,barChart;
+	
+	
 	JTabbedPane tabbedPane;
 
 	private int xMouse, yMouse;
@@ -162,6 +178,62 @@ public class Admin_Screen {
 	private JTextField queidsearch;
 	private JTable allquestiontable;
 
+	// charts Methods
+	public void showPieChart() {
+		// create dataset
+		updateData udp = new updateData();
+		DefaultPieDataset barDataset = new DefaultPieDataset();
+		barDataset.setValue("Student Enrolled", new Double(Double.valueOf(udp.totalCount)));
+		barDataset.setValue("First Year", new Double(Double.valueOf(udp.fecount)));
+		barDataset.setValue("Second Year", new Double(Double.valueOf(udp.secount)));
+		barDataset.setValue("Third Year", new Double(Double.valueOf(udp.tecount)));
+		barDataset.setValue("Forth Year", new Double(Double.valueOf(udp.fecount)));
+
+		// create chart
+		JFreeChart piechart = ChartFactory.createPieChart("Student Data", barDataset, false, true, false);// explain
+
+		PiePlot piePlot = (PiePlot) piechart.getPlot();
+
+		// changing pie chart blocks colors
+		piePlot.setSectionPaint("Student Enrolled", new Color(255, 255, 102));
+		piePlot.setSectionPaint("First Year", new Color(102, 255, 102));
+		piePlot.setSectionPaint("Second Year", new Color(255, 102, 153));
+		piePlot.setSectionPaint("Third Year", new Color(0, 204, 204));
+		piePlot.setBackgroundPaint(Color.white);
+		// create chartPanel to display chart(graph)
+		ChartPanel barChartPanel = new ChartPanel(piechart);
+		pieChart.removeAll();
+		pieChart.add(barChartPanel, BorderLayout.CENTER);
+		pieChart.validate();
+	}
+	
+	public void showBarChart() {
+		updateData udp = new updateData();
+		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+		dataset.setValue(Integer.parseInt(udp.totalCount), "Total Students", "Student Enrolled");
+		dataset.setValue(Integer.parseInt(udp.fecount), "Total Students", "FE");
+		dataset.setValue(Integer.parseInt(udp.secount), "Total Students", "SE");
+		dataset.setValue(Integer.parseInt(udp.tecount), "Total Students", "TE");
+		dataset.setValue(Integer.parseInt(udp.becount), "Total Students", "BE");
+
+		JFreeChart chart = ChartFactory.createBarChart("Students Data", "Student By Year", "Total Students", dataset,
+				PlotOrientation.VERTICAL, false, true, false);
+
+		CategoryPlot categoryPlot = chart.getCategoryPlot();
+		// categoryPlot.setRangeGridlinePaint(Color.BLUE);
+		categoryPlot.setBackgroundPaint(Color.WHITE);
+		BarRenderer renderer = (BarRenderer) categoryPlot.getRenderer();
+		Color clr3 = new Color(204, 0, 51);
+		renderer.setSeriesPaint(0, clr3);
+
+		ChartPanel barpChartPanel = new ChartPanel(chart);
+		barChart.removeAll();
+		barChart.add(barpChartPanel, BorderLayout.CENTER);
+		barChart.validate();
+
+	}
+	
+	
 	// All tables method are here
 
 	void manageStudentTableConfig() {
@@ -353,6 +425,8 @@ public class Admin_Screen {
 	 */
 	public Admin_Screen() {
 		initialize();
+		showPieChart();
+		showBarChart();
 		feedTable.setDefaultEditor(Object.class, null);
 		pointTable.setDefaultEditor(Object.class, null);
 		reward_point_table.setDefaultEditor(Object.class, null);
@@ -1114,17 +1188,6 @@ public class Admin_Screen {
 		lblWelcomeToAdmin.setBounds(387, 58, 375, 50);
 		adminHome.add(lblWelcomeToAdmin);
 
-		JLabel lblGuidlines = new JLabel("Guidelines:");
-		lblGuidlines.setFont(new Font("Segoe UI", Font.BOLD, 20));
-		lblGuidlines.setBorder(null);
-		lblGuidlines.setBounds(81, 136, 127, 40);
-		adminHome.add(lblGuidlines);
-
-		JLabel lblDontHideAnything = new JLabel("* Dont Hide anything stupid ");
-		lblDontHideAnything.setFont(new Font("Segoe UI", Font.BOLD, 18));
-		lblDontHideAnything.setBounds(175, 177, 424, 30);
-		adminHome.add(lblDontHideAnything);
-
 		JSeparator separator_2 = new JSeparator();
 		separator_2.setBounds(12, 428, 1065, 2);
 		adminHome.add(separator_2);
@@ -1254,26 +1317,16 @@ public class Admin_Screen {
 		lblFeedbackData.setFont(new Font("Segoe UI", Font.BOLD, 26));
 		lblFeedbackData.setBounds(702, 443, 184, 30);
 		adminHome.add(lblFeedbackData);
-
-		JLabel lblAdminHave = new JLabel("* Admin have all privilage");
-		lblAdminHave.setFont(new Font("Segoe UI", Font.BOLD, 18));
-		lblAdminHave.setBounds(175, 212, 424, 30);
-		adminHome.add(lblAdminHave);
-
-		JLabel lblAdminCan = new JLabel("* Admin can access all the data");
-		lblAdminCan.setFont(new Font("Segoe UI", Font.BOLD, 18));
-		lblAdminCan.setBounds(175, 247, 424, 30);
-		adminHome.add(lblAdminCan);
-
-		JLabel lblAdminCheck = new JLabel("* Admin check and update all information");
-		lblAdminCheck.setFont(new Font("Segoe UI", Font.BOLD, 18));
-		lblAdminCheck.setBounds(175, 282, 424, 30);
-		adminHome.add(lblAdminCheck);
-
-		JLabel lblAboveScreen = new JLabel("* Above Screen Admin can check all record");
-		lblAboveScreen.setFont(new Font("Segoe UI", Font.BOLD, 18));
-		lblAboveScreen.setBounds(175, 314, 424, 30);
-		adminHome.add(lblAboveScreen);
+		
+		pieChart = new JPanel();
+		pieChart.setBounds(62, 174, 385, 219);
+		adminHome.add(pieChart);
+		pieChart.setLayout(new BorderLayout(0, 0));
+		
+		barChart = new JPanel();
+		barChart.setBounds(639, 174, 408, 219);
+		adminHome.add(barChart);
+		barChart.setLayout(new BorderLayout(0, 0));
 
 		JPanel Manage_Student = new JPanel();
 		tabbedPane.addTab("New tab", null, Manage_Student, null);

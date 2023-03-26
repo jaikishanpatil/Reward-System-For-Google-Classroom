@@ -29,8 +29,8 @@ public class SendEmailVerification {
 		properties.put("mail.smtp.host", "smtp.gmail.com");
 		properties.put("mail.smtp.port", "587");
 		
-		String myAccountEmail="gclassrewardsystem@gmail.com";
-		String password="Gclass@11223344";
+		String myAccountEmail=Credentials.username;
+		String password=Credentials.password;
 		
 		Session session=Session.getInstance(properties, new Authenticator(){
 			@Override

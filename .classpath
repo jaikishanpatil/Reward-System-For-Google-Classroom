@@ -9,5 +9,9 @@
 	<classpathentry kind="lib" path="C:/Users/JAIKISHAN/workspace/Reward System For Google Classroom (Final year Project)/Jar_Files/Notepad.jar"/>
 	<classpathentry kind="lib" path="C:/Users/JAIKISHAN/workspace/Reward System For Google Classroom (Final year Project)/Jar_Files/TimingFramework-0.55.jar"/>
 	<classpathentry kind="lib" path="C:/Users/JAIKISHAN/workspace/Reward System For Google Classroom (Final year Project)/Jar_Files/simplejson-to-easyjson-4.0.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/JAIKISHAN/workspace/Reward System For Google Classroom (Final year Project)/Jar_Files/jcommon-1.0.23.jar"/>
+	<classpathentry kind="lib" path="C:/Users/JAIKISHAN/workspace/Reward System For Google Classroom (Final year Project)/Jar_Files/jfreechart-1.0.19.jar"/>
+	<classpathentry kind="lib" path="C:/Users/JAIKISHAN/workspace/Reward System For Google Classroom (Final year Project)/Jar_Files/activation-1.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/JAIKISHAN/workspace/Reward System For Google Classroom (Final year Project)/Jar_Files/javax.mail-1.6.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
