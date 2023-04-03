@@ -404,6 +404,22 @@ public class Main_Dashbord {
 		frame.getContentPane().add(homePannel);
 		homePannel.setLayout(null);
 		
+		homePannel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				xMouse=e.getX();
+				yMouse=e.getY();
+			}
+		});
+		homePannel.addMouseMotionListener(new MouseMotionAdapter() {
+			@Override
+			public void mouseDragged(MouseEvent e) {
+				int x=e.getXOnScreen();
+				int y=e.getYOnScreen();
+				frame.setLocation(x-xMouse,y-yMouse);
+			}
+		});
+		
 		JPanel panel_3 = new JPanel();
 		panel_3.setBorder(null);
 		panel_3.setBackground(new Color(255, 255, 255));

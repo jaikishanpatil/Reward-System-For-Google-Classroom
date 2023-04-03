@@ -431,6 +431,22 @@ public class Login_Window {
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_1.setBounds(0, 30, 933, 670);
 		frame.getContentPane().add(lblNewLabel_1);
+		
+		lblNewLabel_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				xMouse=e.getX();
+				yMouse=e.getY();
+			}
+		});
+		lblNewLabel_1.addMouseMotionListener(new MouseMotionAdapter() {
+			@Override
+			public void mouseDragged(MouseEvent e) {
+				int x=e.getXOnScreen();
+				int y=e.getYOnScreen();
+				frame.setLocation(x-xMouse,y-yMouse);
+			}
+		});
 	}
 
 	private Color Color(int i, int j, int k) {

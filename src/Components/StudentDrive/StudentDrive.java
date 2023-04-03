@@ -243,6 +243,22 @@ public class StudentDrive {
 		panel.setBounds(0, 0, 1038, 659);
 		frame.getContentPane().add(panel);
 		panel.setLayout(null);
+		
+		panel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				xMouse=e.getX();
+				yMouse=e.getY();
+			}
+		});
+		panel.addMouseMotionListener(new MouseMotionAdapter() {
+			@Override
+			public void mouseDragged(MouseEvent e) {
+				int x=e.getXOnScreen();
+				int y=e.getYOnScreen();
+				frame.setLocation(x-xMouse,y-yMouse);
+			}
+		});
 
 		JPanel panel_1 = new JPanel();
 		panel_1.setLayout(null);

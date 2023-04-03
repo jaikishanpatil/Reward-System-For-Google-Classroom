@@ -12,7 +12,7 @@ import javax.swing.JPanel;
 
 public class Loader {
 
-	private JFrame frame;
+	public JFrame frame;
 
 	/**
 	 * Launch the application.
@@ -21,7 +21,7 @@ public class Loader {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Loader window = new Loader();
+					Loader window = new Loader(false);
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -33,8 +33,12 @@ public class Loader {
 	/**
 	 * Create the application.
 	 */
-	public Loader() {
-		initialize();
+	public Loader(boolean isActive) {
+		if(isActive == false){
+			initialize();			
+		}else{
+			frame.dispose();
+		}
 	}
 
 	/**

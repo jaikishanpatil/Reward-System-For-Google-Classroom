@@ -972,6 +972,22 @@ public class Student_ragister {
 		// bg.png"));
 		lblNewLabel.setBounds(0, 30, 1280, 699);
 		frame.getContentPane().add(lblNewLabel);
+		
+		lblNewLabel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				xMouse=e.getX();
+				yMouse=e.getY();
+			}
+		});
+		lblNewLabel.addMouseMotionListener(new MouseMotionAdapter() {
+			@Override
+			public void mouseDragged(MouseEvent e) {
+				int x=e.getXOnScreen();
+				int y=e.getYOnScreen();
+				frame.setLocation(x-xMouse,y-yMouse);
+			}
+		});
 	}
 
 	protected void repaint() {

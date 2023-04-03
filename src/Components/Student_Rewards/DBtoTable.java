@@ -440,45 +440,53 @@ public class DBtoTable {
 		rdId = new JTextField();
 		rdId.addCaretListener(new CaretListener() {
 			public void caretUpdate(CaretEvent arg0) {
-				Connect co=new Connect();
-				co.cLogin();
-				String qur = "select * from student_rewards where rd_id='"+rdId.getText()+"'";
-				InputStream input;
-				
-				try{
-					PreparedStatement pst=co.conn.prepareStatement(qur);
-					ResultSet rs=pst.executeQuery();
-					File thefile=new File("myImages.png");
-					outpute=new FileOutputStream(thefile);
-					if(rs.next()){
+				if(rdId.getText().length() !=0){
+					if(rdName.getText().length() !=0){
+						Connect co=new Connect();
+						co.cLogin();
+						String qur = "select * from student_rewards where rd_id='"+rdId.getText()+"'";
+						InputStream input;
 						
-						String id=rs.getString("rd_id");
-						String name=rs.getString("rd_name");
-						String points=rs.getString("rd_points");
-						String description=rs.getString("rd_description");
-						String category=rs.getString("rd_category");
-						input=rs.getBinaryStream("rd_img");
-						byte[] buffer=new byte[input.available()];
-						while(input.read(buffer)>0){
-							outpute.write(buffer);
+						try{
+							PreparedStatement pst=co.conn.prepareStatement(qur);
+							ResultSet rs=pst.executeQuery();
+							File thefile=new File("myImages.png");
+							outpute=new FileOutputStream(thefile);
+							if(rs.next()){
+								
+								String id=rs.getString("rd_id");
+								String name=rs.getString("rd_name");
+								String points=rs.getString("rd_points");
+								String description=rs.getString("rd_description");
+								String category=rs.getString("rd_category");
+								input=rs.getBinaryStream("rd_img");
+								byte[] buffer=new byte[input.available()];
+								while(input.read(buffer)>0){
+									outpute.write(buffer);
+								}
+								path=thefile.getAbsolutePath();
+								ImageIcon myimg=new ImageIcon(path);
+								Image img=myimg.getImage();
+								Image newImg=img.getScaledInstance(rdImage.getWidth(), rdImage.getHeight(), Image.SCALE_SMOOTH);
+								ImageIcon image=new ImageIcon(newImg);
+								rdImage.setIcon(image);
+								rdName.setText(name);
+								rdDescription.setText(description);
+								rdPoints.setText(points);
+								rewardCategory=category;
+								
+								
+							}
+						}catch(SQLException | IOException  e1){
+							e1.printStackTrace();
 						}
-						path=thefile.getAbsolutePath();
-						ImageIcon myimg=new ImageIcon(path);
-						Image img=myimg.getImage();
-						Image newImg=img.getScaledInstance(rdImage.getWidth(), rdImage.getHeight(), Image.SCALE_SMOOTH);
-						ImageIcon image=new ImageIcon(newImg);
-						rdImage.setIcon(image);
-						rdName.setText(name);
-						rdDescription.setText(description);
-						rdPoints.setText(points);
-						rewardCategory=category;
-						
-						
+					}else{
+						JOptionPane.showMessageDialog(null, "Please enter valid Id");
 					}
-				}catch(SQLException | IOException  e1){
-					e1.printStackTrace();
+					
+				}else{
+					JOptionPane.showMessageDialog(null, "Please enter ID");
 				}
-				
 			}
 		});
 		rdId.setFont(new Font("Segoe UI", Font.BOLD, 16));
@@ -625,7 +633,12 @@ public class DBtoTable {
 							Assets.Animation_Work.ConfirmationMessage.Message me = new Assets.Animation_Work.ConfirmationMessage.Message(frame, true);
 					        me.showAlert();
 	// ############################################## END ############################
-							JOptionPane.showMessageDialog(null, "reward Redeemded");
+//							JOptionPane.showMessageDialog(null, "reward Redeemded");
+					        rdImage.setIcon(null);
+							rdName.setText("");
+							rdDescription.setText("");
+							rdPoints.setText("");
+					        
 						}else{
 							JOptionPane.showMessageDialog(null, "Wrong password");
 						}
@@ -653,6 +666,7 @@ public class DBtoTable {
 		panel.add(scrollPane_1);
 		
 		rdDescription = new JTextArea();
+		rdDescription.setFont(new Font("Segoe UI", Font.BOLD, 16));
 		rdDescription.setBackground(new Color(255, 212, 84));
 		scrollPane_1.setViewportView(rdDescription);
 		

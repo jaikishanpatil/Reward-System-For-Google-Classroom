@@ -15,6 +15,7 @@ import Components.Student_Rewards.MyQueryCat;
 import Components.Student_Rewards.Product2;
 import Components.Student_Rewards.TheModel;
 import Student_Screens.Login_Window;
+import WorkingClasses.Loader;
 import WorkingClasses.PointDestrubution;
 import WorkingClasses.PointDestrubutionByApi;
 
@@ -95,10 +96,9 @@ public class Admin_Screen {
 	boolean pathSelect = false;
 	String tid = null;
 
-	//charts datat
-	JPanel pieChart,barChart;
-	
-	
+	// charts datat
+	JPanel pieChart, barChart;
+
 	JTabbedPane tabbedPane;
 
 	private int xMouse, yMouse;
@@ -206,7 +206,7 @@ public class Admin_Screen {
 		pieChart.add(barChartPanel, BorderLayout.CENTER);
 		pieChart.validate();
 	}
-	
+
 	public void showBarChart() {
 		updateData udp = new updateData();
 		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
@@ -232,8 +232,7 @@ public class Admin_Screen {
 		barChart.validate();
 
 	}
-	
-	
+
 	// All tables method are here
 
 	void manageStudentTableConfig() {
@@ -1149,6 +1148,22 @@ public class Admin_Screen {
 		lblnd.setBounds(0, 0, 300, 740);
 		lblnd.setIcon(new ImageIcon(adminleft));
 		panel.add(lblnd);
+		
+		lblnd.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				xMouse=e.getX();
+				yMouse=e.getY();
+			}
+		});
+		lblnd.addMouseMotionListener(new MouseMotionAdapter() {
+			@Override
+			public void mouseDragged(MouseEvent e) {
+				int x=e.getXOnScreen();
+				int y=e.getYOnScreen();
+				frame.setLocation(x-xMouse,y-yMouse);
+			}
+		});
 
 		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setBorder(new MatteBorder(1, 1, 2, 2, (Color) new Color(0, 0, 0)));
@@ -1176,6 +1191,21 @@ public class Admin_Screen {
 		tabbedPane.addTab("New tab", null, adminHome, null);
 		adminHome.setLayout(null);
 
+		adminHome.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				xMouse=e.getX();
+				yMouse=e.getY();
+			}
+		});
+		adminHome.addMouseMotionListener(new MouseMotionAdapter() {
+			@Override
+			public void mouseDragged(MouseEvent e) {
+				int x=e.getXOnScreen();
+				int y=e.getYOnScreen();
+				frame.setLocation(x-xMouse,y-yMouse);
+			}
+		});
 		JSeparator separator_3 = new JSeparator();
 		separator_3.setOrientation(SwingConstants.VERTICAL);
 		separator_3.setBounds(555, 470, 2, 266);
@@ -1317,12 +1347,12 @@ public class Admin_Screen {
 		lblFeedbackData.setFont(new Font("Segoe UI", Font.BOLD, 26));
 		lblFeedbackData.setBounds(702, 443, 184, 30);
 		adminHome.add(lblFeedbackData);
-		
+
 		pieChart = new JPanel();
 		pieChart.setBounds(62, 174, 385, 219);
 		adminHome.add(pieChart);
 		pieChart.setLayout(new BorderLayout(0, 0));
-		
+
 		barChart = new JPanel();
 		barChart.setBounds(639, 174, 408, 219);
 		adminHome.add(barChart);
@@ -1332,6 +1362,22 @@ public class Admin_Screen {
 		tabbedPane.addTab("New tab", null, Manage_Student, null);
 		Manage_Student.setLayout(null);
 		Manage_Student.setBackground(new Color(153, 255, 204));
+		
+		Manage_Student.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				xMouse=e.getX();
+				yMouse=e.getY();
+			}
+		});
+		Manage_Student.addMouseMotionListener(new MouseMotionAdapter() {
+			@Override
+			public void mouseDragged(MouseEvent e) {
+				int x=e.getXOnScreen();
+				int y=e.getYOnScreen();
+				frame.setLocation(x-xMouse,y-yMouse);
+			}
+		});
 
 		JLabel textSearch = new JLabel("");
 		textSearch.addMouseListener(new MouseAdapter() {
@@ -1589,6 +1635,22 @@ public class Admin_Screen {
 		addStudent.setBackground(new Color(0, 153, 153));
 		tabbedPane.addTab("New tab", null, addStudent, null);
 		addStudent.setLayout(null);
+		
+		addStudent.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				xMouse=e.getX();
+				yMouse=e.getY();
+			}
+		});
+		addStudent.addMouseMotionListener(new MouseMotionAdapter() {
+			@Override
+			public void mouseDragged(MouseEvent e) {
+				int x=e.getXOnScreen();
+				int y=e.getYOnScreen();
+				frame.setLocation(x-xMouse,y-yMouse);
+			}
+		});
 
 		JLabel lblAddingNewUser = new JLabel("Add Student");
 		lblAddingNewUser.setForeground(Color.WHITE);
@@ -1786,6 +1848,22 @@ public class Admin_Screen {
 		Update_student.setBackground(new Color(204, 255, 204));
 		tabbedPane.addTab("New tab", null, Update_student, null);
 		Update_student.setLayout(null);
+		
+		Update_student.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				xMouse=e.getX();
+				yMouse=e.getY();
+			}
+		});
+		Update_student.addMouseMotionListener(new MouseMotionAdapter() {
+			@Override
+			public void mouseDragged(MouseEvent e) {
+				int x=e.getXOnScreen();
+				int y=e.getYOnScreen();
+				frame.setLocation(x-xMouse,y-yMouse);
+			}
+		});
 
 		JScrollPane scrollPane_1 = new JScrollPane();
 		scrollPane_1.setBackground(new Color(204, 255, 204));
@@ -2355,6 +2433,22 @@ public class Admin_Screen {
 		Update_News.setBackground(new Color(204, 204, 255));
 		tabbedPane.addTab("New tab", null, Update_News, null);
 		Update_News.setLayout(null);
+		
+		Update_News.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				xMouse=e.getX();
+				yMouse=e.getY();
+			}
+		});
+		Update_News.addMouseMotionListener(new MouseMotionAdapter() {
+			@Override
+			public void mouseDragged(MouseEvent e) {
+				int x=e.getXOnScreen();
+				int y=e.getYOnScreen();
+				frame.setLocation(x-xMouse,y-yMouse);
+			}
+		});
 
 		JLabel lblCurriculumNews = new JLabel("Curriculum News");
 		lblCurriculumNews.setFont(new Font("Segoe UI", Font.BOLD, 16));
@@ -2538,6 +2632,22 @@ public class Admin_Screen {
 		Student_Log.setBackground(Color.WHITE);
 		tabbedPane.addTab("New tab", null, Student_Log, null);
 		Student_Log.setLayout(null);
+		
+		Student_Log.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				xMouse=e.getX();
+				yMouse=e.getY();
+			}
+		});
+		Student_Log.addMouseMotionListener(new MouseMotionAdapter() {
+			@Override
+			public void mouseDragged(MouseEvent e) {
+				int x=e.getXOnScreen();
+				int y=e.getYOnScreen();
+				frame.setLocation(x-xMouse,y-yMouse);
+			}
+		});
 
 		JSeparator separator_1 = new JSeparator();
 		separator_1.setOrientation(SwingConstants.VERTICAL);
@@ -2686,7 +2796,7 @@ public class Admin_Screen {
 			public void caretUpdate(CaretEvent arg0) {
 				studentLogTableConfig();
 				Connect connect = new Connect();
-				if(!stdloguname.getText().equals("")){
+				if (!stdloguname.getText().equals("")) {
 					connect.cLogin();
 
 					String str = "Select * from student_log where std_username='" + stdloguname.getText() + "'";
@@ -2702,14 +2812,15 @@ public class Admin_Screen {
 							slogouttime = connect.rs.getString("logout_time");
 							sipaddress = connect.rs.getString("std_ipaddress");
 
-							String todata[] = { slogId, susername, sipaddress, sstatus, sdate, slogintime, slogouttime };
+							String todata[] = { slogId, susername, sipaddress, sstatus, sdate, slogintime,
+									slogouttime };
 							DefaultTableModel df = (DefaultTableModel) stdLog_table.getModel();
 							df.addRow(todata);
 						}
 					} catch (SQLException e1) {
 						e1.printStackTrace();
 					}
-				}else{
+				} else {
 					String str1 = "Select * from student_log";
 					try {
 						connect.cLogin();
@@ -2733,7 +2844,7 @@ public class Admin_Screen {
 						e1.printStackTrace();
 					}
 				}
-				
+
 			}
 		});
 		stdloguname.setFont(new Font("Segoe UI", Font.BOLD, 16));
@@ -2837,6 +2948,7 @@ public class Admin_Screen {
 		scrollPane_8.setViewportView(update_reward_table);
 
 		urName = new JTextField();
+		urName.setEditable(false);
 		urName.setBackground(SystemColor.inactiveCaptionBorder);
 		urName.setFont(new Font("Segoe UI", Font.BOLD, 16));
 		urName.setColumns(10);
@@ -2851,6 +2963,7 @@ public class Admin_Screen {
 		update_reward.add(label_6);
 
 		urPoints = new JTextField();
+		urPoints.setEditable(false);
 		urPoints.setBackground(SystemColor.inactiveCaptionBorder);
 		urPoints.setFont(new Font("Segoe UI", Font.BOLD, 16));
 		urPoints.setColumns(10);
@@ -2875,6 +2988,7 @@ public class Admin_Screen {
 		update_reward.add(scrollPane_9);
 
 		urDescription = new JTextArea();
+		urDescription.setEditable(false);
 		urDescription.setBackground(SystemColor.inactiveCaptionBorder);
 		scrollPane_9.setViewportView(urDescription);
 		urDescription.setFont(new Font("Segoe UI", Font.BOLD, 16));
@@ -2943,144 +3057,159 @@ public class Admin_Screen {
 		lblUpdate_1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				Connect co = new Connect();
-				co.cLogin();
+				if (urId.getText().length() != 0) {
+					if (urName.getText().length() != 0) {
+						Connect co = new Connect();
+						co.cLogin();
 
-				if (pathSelect == true) {
-					try {
-						FileInputStream fis = new FileInputStream(path);
+						if (pathSelect == true) {
+							try {
+								FileInputStream fis = new FileInputStream(path);
 
-						// String query="UPDATE student_rewards SET
-						// rd_id='"+urId.getText()+"',rd_name='"+urName.getText()+"',rd_points='"+urPoints.getText()+"',rd_description='"+urDescription.getText()+"',rd_img='"+fis+"',rd_category='"+urCategory.getSelectedItem()+"'
-						// WHERE rd_id='"+urId.getText()+"'";
-						String quer = "UPDATE student_rewards SET rd_id=? ,rd_name=?, rd_points=?, rd_description=?, rd_img=?, rd_category=? WHERE rd_id='"
-								+ urId.getText() + "'";
-						PreparedStatement pst1 = co.conn.prepareStatement(quer);
-						pst1.setString(1, urId.getText());
-						pst1.setString(2, urName.getText());
-						pst1.setString(3, urPoints.getText());
-						pst1.setString(4, urDescription.getText());
-						pst1.setBinaryStream(5, fis);
-						pst1.setString(6, urCategory.getSelectedItem().toString());
-						pst1.executeUpdate();
-						JOptionPane.showMessageDialog(null, "Reward Update Successfully...!");
-						/*
-						 * st = co.conn.createStatement();
-						 * st.executeUpdate(quer);
-						 */
-						// #####################################Table update
-						// #######################################
-						MyQuery mq = new MyQuery();
-						ArrayList<Product2> list = mq.BindTable();
-						String[] columnName = { "ID", "Name", "Points", "Description", "Image", "Categorie" };
-						Object[][] rows = new Object[list.size()][6];
-						for (int i = 0; i < list.size(); i++) {
-							rows[i][0] = list.get(i).getId();
-							rows[i][1] = list.get(i).getName();
-							rows[i][2] = list.get(i).getQunt();
-							rows[i][3] = list.get(i).getPrice();
+								// String query="UPDATE student_rewards SET
+								// rd_id='"+urId.getText()+"',rd_name='"+urName.getText()+"',rd_points='"+urPoints.getText()+"',rd_description='"+urDescription.getText()+"',rd_img='"+fis+"',rd_category='"+urCategory.getSelectedItem()+"'
+								// WHERE rd_id='"+urId.getText()+"'";
+								String quer = "UPDATE student_rewards SET rd_id=? ,rd_name=?, rd_points=?, rd_description=?, rd_img=?, rd_category=? WHERE rd_id='"
+										+ urId.getText() + "'";
+								PreparedStatement pst1 = co.conn.prepareStatement(quer);
+								pst1.setString(1, urId.getText());
+								pst1.setString(2, urName.getText());
+								pst1.setString(3, urPoints.getText());
+								pst1.setString(4, urDescription.getText());
+								pst1.setBinaryStream(5, fis);
+								pst1.setString(6, urCategory.getSelectedItem().toString());
+								pst1.executeUpdate();
+								JOptionPane.showMessageDialog(null, "Reward Update Successfully...!");
+								/*
+								 * st = co.conn.createStatement();
+								 * st.executeUpdate(quer);
+								 */
+								// #####################################Table
+								// update
+								// #######################################
+								MyQuery mq = new MyQuery();
+								ArrayList<Product2> list = mq.BindTable();
+								String[] columnName = { "ID", "Name", "Points", "Description", "Image", "Categorie" };
+								Object[][] rows = new Object[list.size()][6];
+								for (int i = 0; i < list.size(); i++) {
+									rows[i][0] = list.get(i).getId();
+									rows[i][1] = list.get(i).getName();
+									rows[i][2] = list.get(i).getQunt();
+									rows[i][3] = list.get(i).getPrice();
 
-							if (list.get(i).getMyImage() != null) {
-								ImageIcon image = new ImageIcon(new ImageIcon(list.get(i).getMyImage()).getImage()
-										.getScaledInstance(150, 120, Image.SCALE_SMOOTH));
-								rows[i][4] = image;
-							} else {
-								rows[i][4] = null;
+									if (list.get(i).getMyImage() != null) {
+										ImageIcon image = new ImageIcon(new ImageIcon(list.get(i).getMyImage())
+												.getImage().getScaledInstance(150, 120, Image.SCALE_SMOOTH));
+										rows[i][4] = image;
+									} else {
+										rows[i][4] = null;
+									}
+
+									rows[i][5] = list.get(i).getCatId();
+
+								}
+								TheModel model = new TheModel(rows, columnName);
+								update_reward_table.setModel(model);
+								update_reward_table.setRowHeight(120);
+								update_reward_table.getColumnModel().getColumn(4).setPreferredWidth(150);
+								// ################################## END
+								// ############################
+
+							} catch (SQLException | IOException e1) {
+								e1.printStackTrace();
+							}
+							// co.rs=st.executeQuery(query);
+						} else {
+							/// ################## get image first #######
+							String qur = "select * from student_rewards where rd_id='" + urId.getText() + "'";
+							PreparedStatement pst;
+							try {
+								pst = co.conn.prepareStatement(qur);
+								ResultSet rs = pst.executeQuery();
+								File thefile = new File("myImages.png");
+								outpute = new FileOutputStream(thefile);
+								if (rs.next()) {
+									input = rs.getBinaryStream("rd_img");
+									byte[] buffer = new byte[input.available()];
+									while (input.read(buffer) > 0) {
+										outpute.write(buffer);
+									}
+									path = thefile.getAbsolutePath();
+								}
+							} catch (SQLException | IOException e2) {
+								JOptionPane.showMessageDialog(null, "Please enter the reward ID");
 							}
 
-							rows[i][5] = list.get(i).getCatId();
+							// ################## END ##################
+							Statement st = null;
+							try {
 
+								FileInputStream fis = new FileInputStream(path);
+
+								// String query="UPDATE student_rewards SET
+								// rd_id='"+urId.getText()+"',rd_name='"+urName.getText()+"',rd_points='"+urPoints.getText()+"',rd_description='"+urDescription.getText()+"',rd_img='"+fis+"',rd_category='"+urCategory.getSelectedItem()+"'
+								// WHERE rd_id='"+urId.getText()+"'";
+								String quer = "UPDATE student_rewards SET rd_id=? ,rd_name=?, rd_points=?, rd_description=?, rd_img=?, rd_category=? WHERE rd_id='"
+										+ urId.getText() + "'";
+								PreparedStatement pst1 = co.conn.prepareStatement(quer);
+								pst1.setString(1, urId.getText());
+								pst1.setString(2, urName.getText());
+								pst1.setString(3, urPoints.getText());
+								pst1.setString(4, urDescription.getText());
+								pst1.setBinaryStream(5, fis);
+								pst1.setString(6, urCategory.getSelectedItem().toString());
+								pst1.executeUpdate();
+								JOptionPane.showMessageDialog(null, "Reward Update Successfully...!");
+								urImg.setIcon(null);
+								urName.setText("");
+								urDescription.setText("");
+								urPoints.setText("");
+								urId.setText("");
+								/*
+								 * st = co.conn.createStatement();
+								 * st.executeUpdate(quer);
+								 */
+								// #####################################Table
+								// update
+								// #######################################
+								MyQuery mq = new MyQuery();
+								ArrayList<Product2> list = mq.BindTable();
+								String[] columnName = { "ID", "Name", "Points", "Description", "Image", "Categorie" };
+								Object[][] rows = new Object[list.size()][6];
+								for (int i = 0; i < list.size(); i++) {
+									rows[i][0] = list.get(i).getId();
+									rows[i][1] = list.get(i).getName();
+									rows[i][2] = list.get(i).getQunt();
+									rows[i][3] = list.get(i).getPrice();
+
+									if (list.get(i).getMyImage() != null) {
+										ImageIcon image = new ImageIcon(new ImageIcon(list.get(i).getMyImage())
+												.getImage().getScaledInstance(150, 120, Image.SCALE_SMOOTH));
+										rows[i][4] = image;
+									} else {
+										rows[i][4] = null;
+									}
+
+									rows[i][5] = list.get(i).getCatId();
+
+								}
+								TheModel model = new TheModel(rows, columnName);
+								update_reward_table.setModel(model);
+								update_reward_table.setRowHeight(120);
+								update_reward_table.getColumnModel().getColumn(4).setPreferredWidth(150);
+								// ################################## END
+								// ############################
+
+							} catch (SQLException | IOException e1) {
+								JOptionPane.showMessageDialog(null, "Please enter the reward ID");
+							}
+							// co.rs=st.executeQuery(query);
 						}
-						TheModel model = new TheModel(rows, columnName);
-						update_reward_table.setModel(model);
-						update_reward_table.setRowHeight(120);
-						update_reward_table.getColumnModel().getColumn(4).setPreferredWidth(150);
-						// ################################## END
-						// ############################
-
-					} catch (SQLException | IOException e1) {
-						e1.printStackTrace();
+					} else {
+						JOptionPane.showMessageDialog(null, "Please enter valid ID");
 					}
-					// co.rs=st.executeQuery(query);
 				} else {
-					/// ################## get image first #######
-					String qur = "select * from student_rewards where rd_id='" + urId.getText() + "'";
-					PreparedStatement pst;
-					try {
-						pst = co.conn.prepareStatement(qur);
-						ResultSet rs = pst.executeQuery();
-						File thefile = new File("myImages.png");
-						outpute = new FileOutputStream(thefile);
-						if (rs.next()) {
-							input = rs.getBinaryStream("rd_img");
-							byte[] buffer = new byte[input.available()];
-							while (input.read(buffer) > 0) {
-								outpute.write(buffer);
-							}
-							path = thefile.getAbsolutePath();
-						}
-					} catch (SQLException | IOException e2) {
-						JOptionPane.showMessageDialog(null, "Please enter the reward ID");
-					}
-
-					// ################## END ##################
-					Statement st = null;
-					try {
-
-						FileInputStream fis = new FileInputStream(path);
-
-						// String query="UPDATE student_rewards SET
-						// rd_id='"+urId.getText()+"',rd_name='"+urName.getText()+"',rd_points='"+urPoints.getText()+"',rd_description='"+urDescription.getText()+"',rd_img='"+fis+"',rd_category='"+urCategory.getSelectedItem()+"'
-						// WHERE rd_id='"+urId.getText()+"'";
-						String quer = "UPDATE student_rewards SET rd_id=? ,rd_name=?, rd_points=?, rd_description=?, rd_img=?, rd_category=? WHERE rd_id='"
-								+ urId.getText() + "'";
-						PreparedStatement pst1 = co.conn.prepareStatement(quer);
-						pst1.setString(1, urId.getText());
-						pst1.setString(2, urName.getText());
-						pst1.setString(3, urPoints.getText());
-						pst1.setString(4, urDescription.getText());
-						pst1.setBinaryStream(5, fis);
-						pst1.setString(6, urCategory.getSelectedItem().toString());
-						pst1.executeUpdate();
-						JOptionPane.showMessageDialog(null, "Reward Update Successfully...!");
-						/*
-						 * st = co.conn.createStatement();
-						 * st.executeUpdate(quer);
-						 */
-						// #####################################Table update
-						// #######################################
-						MyQuery mq = new MyQuery();
-						ArrayList<Product2> list = mq.BindTable();
-						String[] columnName = { "ID", "Name", "Points", "Description", "Image", "Categorie" };
-						Object[][] rows = new Object[list.size()][6];
-						for (int i = 0; i < list.size(); i++) {
-							rows[i][0] = list.get(i).getId();
-							rows[i][1] = list.get(i).getName();
-							rows[i][2] = list.get(i).getQunt();
-							rows[i][3] = list.get(i).getPrice();
-
-							if (list.get(i).getMyImage() != null) {
-								ImageIcon image = new ImageIcon(new ImageIcon(list.get(i).getMyImage()).getImage()
-										.getScaledInstance(150, 120, Image.SCALE_SMOOTH));
-								rows[i][4] = image;
-							} else {
-								rows[i][4] = null;
-							}
-
-							rows[i][5] = list.get(i).getCatId();
-
-						}
-						TheModel model = new TheModel(rows, columnName);
-						update_reward_table.setModel(model);
-						update_reward_table.setRowHeight(120);
-						update_reward_table.getColumnModel().getColumn(4).setPreferredWidth(150);
-						// ################################## END
-						// ############################
-
-					} catch (SQLException | IOException e1) {
-						JOptionPane.showMessageDialog(null, "Please enter the reward ID");
-					}
-					// co.rs=st.executeQuery(query);
+					JOptionPane.showMessageDialog(null, "Please Select or enter record id in id Box");
 				}
 
 			}
@@ -3096,39 +3225,47 @@ public class Admin_Screen {
 			public void caretUpdate(CaretEvent arg0) {
 				Connect co = new Connect();
 				co.cLogin();
-				String qur = "select * from student_rewards where rd_id='" + urId.getText() + "'";
-				InputStream input;
+				if (urId.getText().length() != 0) {
+					String qur = "select * from student_rewards where rd_id='" + urId.getText() + "'";
+					InputStream input;
 
-				try {
-					PreparedStatement pst = co.conn.prepareStatement(qur);
-					ResultSet rs = pst.executeQuery();
-					File thefile = new File("myImages.png");
-					outpute = new FileOutputStream(thefile);
-					if (rs.next()) {
+					try {
+						PreparedStatement pst = co.conn.prepareStatement(qur);
+						ResultSet rs = pst.executeQuery();
+						File thefile = new File("myImages.png");
+						outpute = new FileOutputStream(thefile);
+						if (rs.next()) {
 
-						String id = rs.getString("rd_id");
-						String name = rs.getString("rd_name");
-						String points = rs.getString("rd_points");
-						String description = rs.getString("rd_description");
-						String category = rs.getString("rd_category");
-						input = rs.getBinaryStream("rd_img");
-						byte[] buffer = new byte[input.available()];
-						while (input.read(buffer) > 0) {
-							outpute.write(buffer);
+							String id = rs.getString("rd_id");
+							String name = rs.getString("rd_name");
+							String points = rs.getString("rd_points");
+							String description = rs.getString("rd_description");
+							String category = rs.getString("rd_category");
+							input = rs.getBinaryStream("rd_img");
+							byte[] buffer = new byte[input.available()];
+							while (input.read(buffer) > 0) {
+								outpute.write(buffer);
+							}
+							path = thefile.getAbsolutePath();
+							ImageIcon myimg = new ImageIcon(path);
+							Image img = myimg.getImage();
+							Image newImg = img.getScaledInstance(urImg.getWidth(), urImg.getHeight(),
+									Image.SCALE_SMOOTH);
+							ImageIcon image = new ImageIcon(newImg);
+							urImg.setIcon(image);
+							urName.setText(name);
+							urDescription.setText(description);
+							urPoints.setText(points);
+
 						}
-						path = thefile.getAbsolutePath();
-						ImageIcon myimg = new ImageIcon(path);
-						Image img = myimg.getImage();
-						Image newImg = img.getScaledInstance(urImg.getWidth(), urImg.getHeight(), Image.SCALE_SMOOTH);
-						ImageIcon image = new ImageIcon(newImg);
-						urImg.setIcon(image);
-						urName.setText(name);
-						urDescription.setText(description);
-						urPoints.setText(points);
-
+					} catch (SQLException | IOException e1) {
+						e1.printStackTrace();
 					}
-				} catch (SQLException | IOException e1) {
-					e1.printStackTrace();
+				} else {
+					urImg.setIcon(null);
+					urName.setText("");
+					urDescription.setText("");
+					urPoints.setText("");
 				}
 
 			}
@@ -3177,7 +3314,7 @@ public class Admin_Screen {
 		update_reward.add(label_9);
 		label_9.setVisible(false);
 
-		rewardCat = new JComboBox(new Object[] {"All", "Learning", "Canteen", "Railway Pass" });
+		rewardCat = new JComboBox(new Object[] { "All", "Learning", "Canteen", "Railway Pass" });
 		rewardCat.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				MyQueryCat mq = new MyQueryCat();
@@ -3491,7 +3628,7 @@ public class Admin_Screen {
 				reward_point.setText("");
 				reward_description.setText("");
 				reward_category.setSelectedIndex(0);
-				
+
 			}
 		});
 		lblClr.setIcon(new ImageIcon(Admin_Screen.class.getResource("/Assets/Images/clearall_reg.JPG")));
@@ -3533,12 +3670,12 @@ public class Admin_Screen {
 		scrollPane_14.setViewportView(redeem_record);
 		redeemRecordTableConfig();
 
-		comboBox = new JComboBox(new Object[] {"All" ,"Learning", "Canteen", "Railway Pass" });
+		comboBox = new JComboBox(new Object[] { "All", "Learning", "Canteen", "Railway Pass" });
 		comboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Connect co = new Connect();
 				co.cLogin();
-				if(!comboBox.getSelectedItem().toString().equals("All")){
+				if (!comboBox.getSelectedItem().toString().equals("All")) {
 					redeemRecordTableConfig();
 
 					try {
@@ -3564,7 +3701,7 @@ public class Admin_Screen {
 					} catch (Exception e1) {
 
 					}
-				}else{
+				} else {
 					redeemRecordTableConfig();
 
 					try {
@@ -3587,7 +3724,7 @@ public class Admin_Screen {
 					} catch (Exception e1) {
 
 					}
-					
+
 				}
 			}
 		});
@@ -3646,6 +3783,22 @@ public class Admin_Screen {
 		UpdateTimetable.setBackground(SystemColor.info);
 		tabbedPane.addTab("New tab", null, UpdateTimetable, null);
 		UpdateTimetable.setLayout(null);
+		
+		UpdateTimetable.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				xMouse=e.getX();
+				yMouse=e.getY();
+			}
+		});
+		UpdateTimetable.addMouseMotionListener(new MouseMotionAdapter() {
+			@Override
+			public void mouseDragged(MouseEvent e) {
+				int x=e.getXOnScreen();
+				int y=e.getYOnScreen();
+				frame.setLocation(x-xMouse,y-yMouse);
+			}
+		});
 
 		JLabel lblUpdateTt = new JLabel("Time Table Update");
 		lblUpdateTt.setHorizontalAlignment(SwingConstants.CENTER);
@@ -3870,6 +4023,22 @@ public class Admin_Screen {
 		UpdateQuize.setBackground(new Color(255, 255, 102));
 		tabbedPane.addTab("New tab", null, UpdateQuize, null);
 		UpdateQuize.setLayout(null);
+		
+		UpdateQuize.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				xMouse=e.getX();
+				yMouse=e.getY();
+			}
+		});
+		UpdateQuize.addMouseMotionListener(new MouseMotionAdapter() {
+			@Override
+			public void mouseDragged(MouseEvent e) {
+				int x=e.getXOnScreen();
+				int y=e.getYOnScreen();
+				frame.setLocation(x-xMouse,y-yMouse);
+			}
+		});
 
 		JTabbedPane tabbedPane_3 = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane_3.setBounds(63, 143, 965, 586);
@@ -4315,7 +4484,7 @@ public class Admin_Screen {
 						sopt3.setText(co.rs.getString("q_opt3"));
 						sopt4.setText(co.rs.getString("q_opt4"));
 						sans.setText(co.rs.getString("q_answer"));
-						queidsearch.setEditable(false);
+						queidsearch.setEditable(true);
 					} else {
 						JOptionPane.showMessageDialog(null, "Question not found...");
 						queidsearch.setEditable(true);
@@ -4340,27 +4509,38 @@ public class Admin_Screen {
 			public void caretUpdate(CaretEvent arg0) {
 				Connect co = new Connect();
 				co.cLogin();
-				String searchque = "select * from quiz_questions where q_id='" + queidsearch.getText() + "'";
+				if (queidsearch.getText().length() != 0) {
+					String searchque = "select * from quiz_questions where q_id='" + queidsearch.getText() + "'";
 
-				Statement st;
-				try {
-					st = co.conn.createStatement();
-					co.rs = st.executeQuery(searchque);
-					if (co.rs.next()) {
-						squename.setText(co.rs.getString("q_name"));
-						sopt1.setText(co.rs.getString("q_opt1"));
-						sopt2.setText(co.rs.getString("q_opt2"));
-						sopt3.setText(co.rs.getString("q_opt3"));
-						sopt4.setText(co.rs.getString("q_opt4"));
-						sans.setText(co.rs.getString("q_answer"));
-						queidsearch.setEditable(false);
-					} else {
-						queidsearch.setEditable(true);
+					Statement st;
+					try {
+						st = co.conn.createStatement();
+						co.rs = st.executeQuery(searchque);
+						if (co.rs.next()) {
+							squename.setText(co.rs.getString("q_name"));
+							sopt1.setText(co.rs.getString("q_opt1"));
+							sopt2.setText(co.rs.getString("q_opt2"));
+							sopt3.setText(co.rs.getString("q_opt3"));
+							sopt4.setText(co.rs.getString("q_opt4"));
+							sans.setText(co.rs.getString("q_answer"));
+							queidsearch.setEditable(true);
+						} else {
+							queidsearch.setEditable(true);
+						}
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
 					}
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+				} else {
+					squename.setText("");
+					sopt1.setText("");
+					sopt2.setText("");
+					sopt3.setText("");
+					sopt4.setText("");
+					sans.setText("");
+
 				}
+
 			}
 		});
 		queidsearch.setFont(new Font("Segoe UI", Font.BOLD, 16));
@@ -4442,6 +4622,22 @@ public class Admin_Screen {
 		pointDistrubation.setLayout(null);
 		pointDistrubation.setBackground(Color.WHITE);
 		tabbedPane.addTab("New tab", null, pointDistrubation, null);
+		
+		pointDistrubation.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				xMouse=e.getX();
+				yMouse=e.getY();
+			}
+		});
+		pointDistrubation.addMouseMotionListener(new MouseMotionAdapter() {
+			@Override
+			public void mouseDragged(MouseEvent e) {
+				int x=e.getXOnScreen();
+				int y=e.getYOnScreen();
+				frame.setLocation(x-xMouse,y-yMouse);
+			}
+		});
 
 		JTabbedPane tabbedPane_2 = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane_2.setBounds(12, 95, 1065, 660);
@@ -4453,7 +4649,7 @@ public class Admin_Screen {
 		allRecords.setLayout(null);
 
 		JScrollPane scrollPane_11 = new JScrollPane();
-		scrollPane_11.setBounds(63, 83, 941, 518);
+		scrollPane_11.setBounds(62, 36, 941, 518);
 		allRecords.add(scrollPane_11);
 
 		reward_point_table = new JTable();
@@ -4461,6 +4657,55 @@ public class Admin_Screen {
 		reward_point_table.setRowMargin(2);
 		reward_point_table.setRowHeight(30);
 		scrollPane_11.setViewportView(reward_point_table);
+
+		JLabel label_35 = new JLabel("");
+		label_35.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				// uncomment the below part for getting data added by csv file
+				// PointDestrubution pd = new PointDestrubution();
+				// pd.newData(path);
+				// pointsTableConfig();
+
+				// Reward points added from api
+				PointDestrubutionByApi pdapi = new PointDestrubutionByApi();
+				pdapi.pointDestrubutionThroughDatabase();
+				JOptionPane.showMessageDialog(null, "Reward points added Successfully into the student Accounts...!");
+
+				// From here data is reflacting to the record table
+				Loader ldr = new Loader(false);
+				ldr.frame.setVisible(true);
+				redeemPointsTableConfig();
+				Connect co = new Connect();
+				co.cLogin();
+				String query = "select * from student_reward_points";
+				Statement st = null;
+				try {
+					st = co.conn.createStatement();
+					co.rs = st.executeQuery(query);
+
+					while (co.rs.next()) {
+						String rdname = co.rs.getString("reward_name");
+						String rdemail = co.rs.getString("reward_email");
+						String rdprn = co.rs.getString("reward_prn");
+						int rdpoints = co.rs.getInt("reward_points");
+						String points = String.valueOf(rdpoints);
+						String todata[] = { rdname, rdemail, rdprn, points };
+						DefaultTableModel df = (DefaultTableModel) reward_point_table.getModel();
+						df.addRow(todata);
+					}
+					ldr.frame.dispose();
+				} catch (SQLException e1) {
+
+					e1.printStackTrace();
+				}
+			}
+		});
+		label_35.setIcon(new ImageIcon(Admin_Screen.class.getResource("/Assets/Images/add_button1.PNG")));
+		label_35.setToolTipText("Add points from here");
+		label_35.setHorizontalAlignment(SwingConstants.CENTER);
+		label_35.setBounds(902, 560, 100, 35);
+		allRecords.add(label_35);
 		redeemPointsTableConfig();
 
 		JPanel studentPointDistrubation = new JPanel();
@@ -4535,6 +4780,7 @@ public class Admin_Screen {
 				// pointsTableConfig();
 
 				// Reward points added from api
+				Loader ldr = new Loader(false);
 				PointDestrubutionByApi pdapi = new PointDestrubutionByApi();
 				pdapi.pointDestrubutionThroughDatabase();
 				JOptionPane.showMessageDialog(null, "Reward points added Successfully into the student Accounts...!");
@@ -4559,6 +4805,8 @@ public class Admin_Screen {
 						DefaultTableModel df = (DefaultTableModel) reward_point_table.getModel();
 						df.addRow(todata);
 					}
+
+					ldr.frame.dispose();
 				} catch (SQLException e1) {
 
 					e1.printStackTrace();
@@ -4593,6 +4841,22 @@ public class Admin_Screen {
 		tabbedPane.addTab("New tab", null, feedback, null);
 		feedback.setLayout(null);
 		feedback.setBackground(Color.WHITE);
+		
+		feedback.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				xMouse=e.getX();
+				yMouse=e.getY();
+			}
+		});
+		feedback.addMouseMotionListener(new MouseMotionAdapter() {
+			@Override
+			public void mouseDragged(MouseEvent e) {
+				int x=e.getXOnScreen();
+				int y=e.getYOnScreen();
+				frame.setLocation(x-xMouse,y-yMouse);
+			}
+		});
 
 		JScrollPane scrollPane_10 = new JScrollPane();
 		scrollPane_10.setBounds(78, 156, 948, 395);
