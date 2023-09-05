@@ -1,0 +1,94 @@
+function testFunaction() {
+  let courseIds
+  let dataForAPI = [];
+  let studentData = [];
+  const courses = Classroom.Courses.list().courses;
+  courseIds = courses.map(d => {
+    return d.id;
+  })
+  const courseData = courses.map(c => {
+    return [c.name, c.section, c.description, c.room, c.enrollmentCode, c.courseState, c.ownerId, c.id];
+  });
+  const write = SpreadsheetApp.getActiveSpreadsheet();
+  const sheet1 = write.getSheetByName("Sheet1");
+  const deleteData = sheet1.getActiveRange();
+  deleteData.clearContent();
+  sheet1.getRange(2, 1, courseData.length, courseData[0].length).setValues(courseData);
+  console.log(courseIds)
+  // Course datas get from here #########################################################################
+
+  courseIds.forEach((x, i) => {
+    const course_ID = courseIds[i]
+    let mava = Classroom.Courses.Students.list(course_ID).students;
+    let gava = Classroom.Courses.CourseWork.StudentSubmissions.list(course_ID, course_work_id = "-").studentSubmissions;
+    if (gava?.length && mava?.length) {
+      const stdData1 = gava.forEach(x => {
+        const courseIds = mava.forEach(y => {
+          if (x.userId === y.userId && x.assignedGrade !== undefined) {
+            let test =
+            {
+              studentId: y.userId,
+              courseId: y.courseId,
+              assignmentId: x.courseWorkId,
+              studentName: y.profile.name.fullName,
+              profileImage: y.profile.photoUrl,
+              email: y.profile.emailAddress,
+              grade: x.assignedGrade,
+              crateTime: x.creationTime,
+              updateTime: x.updateTime
+            }
+            dataForAPI = dataForAPI.concat(test);
+          }
+        })
+      })
+
+      dataForAPI.map(x => {
+        if (x.courseId === courseIds[i]) {
+          let stdData = {
+            [courseIds[i]]: {
+              studentId: x.studentId,
+              studentName: x.studentName,
+              email: x.email,
+              grade: x.grade,
+              courseId: x.courseId,
+              assignmentId: x.assignmentId,
+              crateTime: x.crateTime,
+              updateTime: x.updateTime,
+              profileImage: x.profileImage
+            }
+          }
+          studentData = studentData.concat(stdData);
+        }
+      })
+    }
+  })
+  console.log("test courses", studentData);
+  const dataForCSV = dataForAPI.map(x => {
+    return [x.studentId, x.studentName, x.email, x.grade, x.courseId, x.assignmentId, x.crateTime, x.updateTime, x.profileImage];
+  })
+  console.log("Final courses", dataForCSV);
+  ////TEST END
+
+  dataForAPI = dataForAPI.map(x => {
+    return {
+      email: x.email,
+      grade: x.grade
+    };
+  })
+
+  console.log("Data for APII", dataForAPI);
+
+  const sh = SpreadsheetApp.getActiveSpreadsheet();
+  const so = sh.getSheetByName("sheet2");
+  const deleteData2 = so.getActiveRange();
+  deleteData2.clearContent();
+  so.getRange(1, 1, dataForCSV.length, dataForCSV[0].length).setValues(dataForCSV);
+  // const po = sh.getSheetByName("sheet2");
+  // po.getRange(1, 1, doot.length, doot[0].length).setValues(doot.reverse());
+
+  const to = sh.getSheetByName("sheet2");
+  // console.log("TEMP");
+  // console.log(to.getSheetValues(1, 1, soot.length, soot[0].length));
+
+
+}
