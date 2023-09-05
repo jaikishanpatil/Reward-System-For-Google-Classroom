@@ -1,0 +1,79 @@
+function doGet(e) {
+  var action = e.parameter.action;
+  let courseIds;
+  let dataForAPI = [];
+
+  if (action == 'getUser') {
+    const wBook = SpreadsheetApp.openByUrl('https://docs.google.com/spreadsheets/d/1OR5v-io0ezG9EcORKkopBSPaWNYQpEXc62nUeb-VlEk/edit?usp=sharing');
+    const data = Classroom.Courses.list().courses;
+    courseIds = data.map(d => {
+      return d.id;
+    })
+    const courseData = data.map(c => {
+      return [c.name, c.section, c.description, c.room, c.enrollmentCode, c.courseState, c.ownerId, c.id];
+    });
+    // const write = SpreadsheetApp.getActiveSpreadsheet();
+    const sheet1 = wBook.getSheetByName("Sheet1");
+    // for delete the active data 
+    const deleteData = sheet1.getRange("A1:D10");
+    deleteData.clear();
+    sheet1.getRange(2, 1, courseData.length, courseData[0].length).setValues(courseData);
+    // Course data get from here with the loops #########################################################################
+
+    courseIds.forEach((x, i) => {
+      const course_ID = courseIds[i]
+      let getStudents = Classroom.Courses.Students.list(course_ID).students;
+      let getStudentSubmissions = Classroom.Courses.CourseWork.StudentSubmissions.list(course_ID, course_work_id = "-").studentSubmissions;
+      if (getStudentSubmissions?.length && getStudents?.length) {
+        getStudentSubmissions.forEach(x => {
+          getStudents.forEach(y => {
+            if (x.userId === y.userId && x.assignedGrade !== undefined) {
+              let test =
+              {
+                studentId: y.userId,
+                studentName: y.profile.name.fullName,
+                email: y.profile.emailAddress,
+                grade: x.assignedGrade,
+                crateTime: x.creationTime,
+                updateTime: x.updateTime
+              }
+              dataForAPI = dataForAPI.concat(test);
+            }
+          })
+        })
+      }
+    })
+
+    const dataForCSV = dataForAPI.map(x => {
+      return [x.studentId, x.studentName, x.email, x.grade, x.crateTime, x.updateTime];
+    })
+
+    //Temp test
+   dataForAPI = dataForAPI.map(x => {
+    return {
+      temp_email: x.email,
+      temp_point: x.grade
+    };
+  })
+    //End
+    //// END
+    // const sh = SpreadsheetApp.getActiveSpreadsheet();
+    const sheet2 = wBook.getSheetByName("sheet2");
+    //for delete the active data 
+    const deleteData2 = sheet2.getRange("A1:D10");
+    deleteData2.clear();
+    sheet2.getRange(1, 1, dataForCSV.length, dataForCSV[0].length).setValues(dataForCSV);
+    // return HtmlService.createHtmlOutput(JSON.stringify(dataForAPI));
+
+
+    return ContentService.createTextOutput(JSON.stringify(dataForAPI)).setMimeType(ContentService.MimeType.JSON);
+  } else {
+    return ContentService.createTextOutput("WRONG CREDENTIALS...!").setMimeType(ContentService.MimeType.JSON);
+  }
+
+  //https://script.google.com/macros/s/AKfycbzrhDDtgMnXZhHNX97lE7vSpNbPE_97aiGLgHXwL9fLNDsGjMxa0oGMpMtYJKzShCWS/exec?action=getUser
+  //https://script.google.com/macros/s/AKfycbzrhDDtgMnXZhHNX97lE7vSpNbPE_97aiGLgHXwL9fLNDsGjMxa0oGMpMtYJKzShCWS/exec
+  // only email and points
+  //https://script.google.com/macros/s/AKfycbxCGCb0z61irjn6ezJmHtdPSR1LGO38PLL4TQvmuY0heKH4DrqLL5MHj6rEMZAnd_0/exec?action=getUser
+
+}
